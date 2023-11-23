@@ -41,7 +41,13 @@ function displayGallery(worksList) {
     }
 }
 
+// Appel lors du lancement initial de la page
+displayGallery(worksList);
 
+// Rafraîchit la gallerie quand la page est actualisée
+window.addEventListener("load", function(){
+    displayGallery(worksList);
+})
 
 
 
