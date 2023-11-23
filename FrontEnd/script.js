@@ -2,20 +2,25 @@
 //                              RECUPERATION DES TRAVAUX
 //
 
-let listeTravaux;
+async function getWorks () {
+    // Fetch 
+    fetch("http://localhost:5678/api/works").then(
+        (works) => { return works.json() }
+    // JSON conversion
+    ).then(
+        (json) => { return json }
+    )
+}
 
-// envoi de requête GET
- listeTravaux = fetch("http://localhost:5678/api/works")
-    // then => requête traitée en asynchrone
-    // .json : convertit requête en JSON
-    .then(response => response.json())
-    .then(data => {
-        // Pending Promise
-        listeTravaux = data;
-        // console.log(data);
-    })
-    .catch(error => {
-        console.error(error);
-    });
+let worksList = getWorks();
+console.log(worksList);
+
+// DOM
+
+
+
+
+
+
 
 
