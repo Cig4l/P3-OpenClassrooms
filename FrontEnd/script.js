@@ -41,10 +41,11 @@ async function displayGallery () {
 // Appel lors du lancement initial de la page
 displayGallery();
 
-// Rafraîchit la gallerie quand la page est actualisée
-window.addEventListener("load", function(){
-    displayGallery();
-})
+// // Rafraîchit la gallerie quand la page est actualisée
+// window.addEventListener("load", function(){
+//     // vider la div pour éviter doublon ?
+//     displayGallery();
+// })
 
 
 

@@ -84,6 +84,41 @@ h2{
 	font-size: 30px;
 	color: #1D6154
 }
+
+/*     Filtres     */
+
+.filters{
+	margin: 50px 0;
+	/* flexbox */
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+}
+
+.filter{
+	padding: 10px 15px;
+	border-radius: 60px;
+	border: 1px solid #1D6154; 
+	background-color: white;
+	/* text */
+	color: #1D6154;
+	text-align: center;
+	font-family: Syne;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal; 
+
+}
+
+.filter:hover, filter:active, filter:focus{
+	background-color: #1D6154;
+	color: white;
+}
+
+/*                 */
+
+
 nav ul {
 	display: flex;
 	align-items: center;
