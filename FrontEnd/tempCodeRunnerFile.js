@@ -1,1 +1,1 @@
-getWorks
+getWorks();
