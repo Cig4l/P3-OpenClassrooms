@@ -18,8 +18,22 @@ async function displayCategories () {
 
     // Sélectionner la div
     const filters = document.querySelector(".filters");
+    // Children
+    let children = filters.children;
 
-    // Ajouter contenu
+    // Bouton Tous
+    let filterZero = document.getElementById("filter-0");
+    // Event Bouton Tous
+    filterZero.addEventListener("click", function () {
+        for(i=0; i<children.length; i++){
+            // Remove selected class
+            children[i].classList.remove("selectedFilter");
+        }
+        filterZero.classList.add("selectedFilter");
+        displayGallery();
+    });
+
+    // Boutons Filtres de l'API
     for(i=0; i<categories.length; i++){
         // Créer bouton API
         let filter = document.createElement("button");
@@ -30,10 +44,12 @@ async function displayCategories () {
         filter.textContent = `${categories[i].name}`;
         // Ajouter bouton
         filters.appendChild(filter);
-        // Remove selected class
-        filters.children.classList.remove("selectedFilter");
         // Event
         filter.addEventListener("click", function () {
+            for(i=0; i<children.length; i++){
+                // Remove selected class
+                children[i].classList.remove("selectedFilter");
+            }
             filter.classList.add("selectedFilter");
             displayGallery();
         })
