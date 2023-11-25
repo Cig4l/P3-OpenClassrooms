@@ -48,6 +48,7 @@ async function displayGallery () {
 
     // Sélectionner la div
     const gallery = document.querySelector(".gallery");
+    gallery.innerHTML = "";
 
     // Ajouter contenu
     for(i = 0; i<worksList.length; i++){
@@ -74,8 +75,24 @@ async function displayGallery () {
 // // Rafraîchit la gallerie quand la page est actualisée
 window.addEventListener("load", function(){
     displayCategories();
-    displayGallery();
+    // displayGallery();
 })
+
+// EVENTS FILTRES
+
+filters = document.querySelector(".filters");
+
+for(i=0; i<filters.children.length; i++){
+    filters.addEventListener("click", function(){
+        displayGallery();
+    })
+}
+
+// filter = document.getElementById("filter-0");
+
+// filter.addEventListener("click", function(){
+//     displayGallery();
+// })
 
 
 
