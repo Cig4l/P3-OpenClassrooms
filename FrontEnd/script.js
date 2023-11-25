@@ -93,13 +93,9 @@ async function displayGallery () {
     }
 }
 
-// Appel lors du lancement initial de la page
-// displayGallery();
-
 // // Rafraîchit la gallerie quand la page est actualisée
 window.addEventListener("load", function(){
     displayCategories();
-    // displayGallery();
 })
 
 // EVENTS FILTRES
@@ -110,21 +106,4 @@ filters = document.querySelector(".filters");
 filter = document.querySelectorAll(".filter");
 
 filterZero = document.querySelector("#filter-0");
-
-
-
-// filter[0].addEventListener("click", function () {
-//     filterZero.classList.add("selectedFilter");
-//     filterZero.classList.remove("filter");
-//     displayGallery();
-// })
-
-
-
-
-
-
-
-
-
 
