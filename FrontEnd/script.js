@@ -25,10 +25,18 @@ async function displayCategories () {
         let filter = document.createElement("button");
         // Propriétés
         filter.classList.add("filter");
+        filter.type = "button";
         filter.id = `filter-${categories[i].id}`;
         filter.textContent = `${categories[i].name}`;
         // Ajouter bouton
         filters.appendChild(filter);
+        // Remove selected class
+        filters.children.classList.remove("selectedFilter");
+        // Event
+        filter.addEventListener("click", function () {
+            filter.classList.add("selectedFilter");
+            displayGallery();
+        })
     }
 }
 
@@ -80,17 +88,18 @@ window.addEventListener("load", function(){
 
 // EVENTS FILTRES
 
+// Container des boutons filtre
 filters = document.querySelector(".filters");
+// Tous les boutons filtre
+filter = document.querySelectorAll(".filter");
 
-for(i=0; i<filters.children.length; i++){
-    filters.addEventListener("click", function(){
-        displayGallery();
-    })
-}
+filterZero = document.querySelector("#filter-0");
 
-// filter = document.getElementById("filter-0");
 
-// filter.addEventListener("click", function(){
+
+// filter[0].addEventListener("click", function () {
+//     filterZero.classList.add("selectedFilter");
+//     filterZero.classList.remove("filter");
 //     displayGallery();
 // })
 

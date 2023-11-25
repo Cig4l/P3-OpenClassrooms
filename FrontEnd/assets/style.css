@@ -110,9 +110,25 @@ h2{
 	line-height: normal; 
 }
 
-.filter:hover, filter:active, filter:focus{
+.filter:hover{
+	border: 1px solid #1D6154;
+	background-color: #b6d3ce;
+	color: 1D6154;
+}
+
+.selectedFilter, .selectedFilter:hover{
+	padding: 10px 15px;
+	border-radius: 60px;
+	border: 1px solid #1D6154;
 	background-color: #1D6154;
+	/* text */
 	color: white;
+	text-align: center;
+	font-family: Syne;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal; 
 }
 
 /*                 */
