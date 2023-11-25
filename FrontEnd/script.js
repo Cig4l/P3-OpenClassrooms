@@ -2,6 +2,36 @@
 //                              RECUPERATION DES TRAVAUX
 //
 
+async function fetchCategories () {
+    const response = await fetch("http://localhost:5678/api/categories");
+    if(!response.ok) {
+        throw new Error("Erreur HTTP! Statut : ${response.status}")
+    }
+    const json = await response.json();
+    return json;
+}
+
+async function displayCategories () {
+    // Récupérer json
+    const categories = await fetchCategories();
+    console.log(categories);
+
+    // Sélectionner la div
+    const filters = document.querySelector(".filters");
+
+    // Ajouter contenu
+    for(i=0; i<categories.length; i++){
+        // Créer bouton API
+        let filter = document.createElement("button");
+        // Propriétés
+        filter.classList.add("filter");
+        filter.id = `filter-${categories[i].id}`;
+        filter.textContent = `${categories[i].name}`;
+        // Ajouter bouton
+        filters.appendChild(filter);
+    }
+}
+
 async function fetchWorks () {
     const response = await fetch("http://localhost:5678/api/works");
     if(!response.ok) {
@@ -14,7 +44,7 @@ async function fetchWorks () {
 async function displayGallery () {
     // Récupérer JSON
     const worksList = await fetchWorks();
-    console.log(worksList)
+    // console.log(worksList)
 
     // Sélectionner la div
     const gallery = document.querySelector(".gallery");
@@ -39,13 +69,13 @@ async function displayGallery () {
 }
 
 // Appel lors du lancement initial de la page
-displayGallery();
+// displayGallery();
 
 // // Rafraîchit la gallerie quand la page est actualisée
-// window.addEventListener("load", function(){
-//     // vider la div pour éviter doublon ?
-//     displayGallery();
-// })
+window.addEventListener("load", function(){
+    displayCategories();
+    displayGallery();
+})
 
 
 

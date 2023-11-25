@@ -1,1 +1,1 @@
-getWorks();
+    // console.log(categories);
