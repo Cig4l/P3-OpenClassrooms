@@ -4,7 +4,6 @@
 const CATEGORIES_API = "http://localhost:5678/api/categories";
 const WORKS_API = "http://localhost:5678/api/works";
 
-// let current_filter
 
 async function fetchFromAPI (url) {
     const response = await fetch(url);
@@ -14,6 +13,8 @@ async function fetchFromAPI (url) {
     const json = await response.json();
     return json;
 }
+
+//                               AFFICHER CATEGORIES 
 
 async function displayCategories () {
     // Récupérer json
@@ -25,7 +26,7 @@ async function displayCategories () {
     // Children
     let children = filters.children;
 
-    // Bouton Tous
+    // BOUTON TOUS
     let filterZero = document.getElementById("filter-0");
     // Event Bouton Tous
     filterZero.addEventListener("click", function () {
@@ -35,10 +36,10 @@ async function displayCategories () {
             children[i].classList.remove("selectedFilter");
         }
         filterZero.classList.add("selectedFilter");
-        displayGallery();
+        displayGallery(0);
     });
 
-    // Boutons Filtres de l'API
+    // AUTRES BOUTONS
     for(i=0; i<categories.length; i++){
         // Créer bouton API
         let filter = document.createElement("button");
@@ -57,26 +58,22 @@ async function displayCategories () {
                 children[i].classList.remove("selectedFilter");
             }
             filter.classList.add("selectedFilter");
-            // displayGallery()
-            // MODIF
-            if(filter.id === "filter-0"){
-                displayGallery("0");
-            }
-            else{
-                displayGallery(id);
-            }
-            // FIN MODIF
+            displayGallery(id);
         })
     }
 }
 
-
-                          // MODIF
+//                           AFFICHER GALLERIE + FILTRER
 
 async function displayGallery (id) {
     // Récupérer JSON
-    const worksList = await fetchFromAPI(WORKS_API);
+    let worksList = await fetchFromAPI(WORKS_API);
     // console.log(worksList)
+
+    // Filtrage si l'id n'est pas 0 (bouton filtre Tous)
+    if(id !== 0) {
+        worksList = worksList.filter(work => work.categoryId === id);
+    }
 
     // Sélectionner la div
     const gallery = document.querySelector(".gallery");
@@ -86,11 +83,7 @@ async function displayGallery (id) {
     // Ajouter contenu
     let filter = document.querySelectorAll(".filter");
 
-    if(filter[0].className === "selectedFilter"){
-        console.log("hello");
-    }
-
-    for(i = 0; i<worksList.length; i++){
+    for(j = 0; j<worksList.length; j++){
         // Créer les éléments
             // parent
         let galleryFigure = document.createElement("figure");
@@ -98,9 +91,9 @@ async function displayGallery (id) {
         let galleryImg = document.createElement("img");
         let galleryFigcaption = document.createElement("figcaption");
 
-        galleryImg.src = worksList[i].imageUrl;
-        galleryImg.alt = worksList[i].title;
-        galleryFigcaption.innerText = worksList[i].title;
+        galleryImg.src = worksList[j].imageUrl;
+        galleryImg.alt = worksList[j].title;
+        galleryFigcaption.innerText = worksList[j].title;
 
         gallery.appendChild(galleryFigure);
         galleryFigure.appendChild(galleryImg);
@@ -108,7 +101,7 @@ async function displayGallery (id) {
     }
 }
 
-// // Rafraîchit la gallerie quand la page est actualisée
+//              Rafraîchit la gallerie quand la page est actualisée
 window.addEventListener("load", function(){
     displayCategories();
 })
