@@ -85,7 +85,7 @@ h2{
 	color: #1D6154
 }
 
-/*     Filtres     */
+/*                          FILTRES                             */
 
 .filters{
 	margin: 50px 0;
@@ -130,7 +130,7 @@ h2{
 	line-height: normal; 
 }
 
-/*                 */
+/*                          NAVIGATION                             */
 
 
 nav ul {
@@ -157,6 +157,8 @@ li:active {
 	font-weight: bold;
 }
 
+/*                         INTRODUCTION                      */
+
 #introduction {
 	display: flex;
 	align-items: center;
@@ -180,6 +182,9 @@ li:active {
 #introduction p {
 	margin-bottom: 0.5em;
 }
+
+/*                            PORTFOLIO                              */
+
 #portfolio h2 {
 	text-align: center;
 	margin-bottom: 1em;
@@ -196,31 +201,38 @@ li:active {
 	width: 100%;
 
 }
-#contact {
+
+/*                              FORMS                           */
+
+
+/*      Contact     */
+
+#contact, #login {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
-#contact > * {
+
+#contact {
 	text-align: center;
 
 }
 #contact h2{
 	margin-bottom: 20px;
 }
-#contact form {
+#contact form, #login form {
 	text-align: left;
 	margin-top:30px;
 	display: flex;
 	flex-direction: column;
 }
 
-#contact input {
+#contact input, #login input {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-#contact label {
+#contact label, #login label {
 	margin: 2em 0 1em 0;
 }
 #contact textarea {
@@ -249,3 +261,27 @@ footer nav ul {
 	margin: 2em
 }
 
+/* Login */
+
+#login{
+	margin-top: 150px;
+	margin-bottom: 300px;
+}
+
+#login h2{
+	margin-bottom: 7px;
+	text-align: center;
+}
+
+#email-login{
+	margin-bottom: 30px;
+}
+
+#forgotten-pw {
+	text-align: center;
+	text-decoration: underline;
+}
+
+#forgotten-pw:hover{
+	color: #B1663C;
+}
