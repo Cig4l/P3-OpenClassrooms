@@ -1,9 +1,13 @@
 //
 //                              RECUPERATION DES TRAVAUX
 //
+const CATEGORIES_API = "http://localhost:5678/api/categories";
+const WORKS_API = "http://localhost:5678/api/works";
 
-async function fetchCategories () {
-    const response = await fetch("http://localhost:5678/api/categories");
+// let current_filter
+
+async function fetchFromAPI (url) {
+    const response = await fetch(url);
     if(!response.ok) {
         throw new Error("Erreur HTTP! Statut : ${response.status}")
     }
@@ -13,7 +17,7 @@ async function fetchCategories () {
 
 async function displayCategories () {
     // Récupérer json
-    const categories = await fetchCategories();
+    const categories = await fetchFromAPI(CATEGORIES_API);
     console.log(categories);
 
     // Sélectionner la div
@@ -25,6 +29,7 @@ async function displayCategories () {
     let filterZero = document.getElementById("filter-0");
     // Event Bouton Tous
     filterZero.addEventListener("click", function () {
+        // selectFilter(this);
         for(i=0; i<children.length; i++){
             // Remove selected class
             children[i].classList.remove("selectedFilter");
@@ -37,6 +42,7 @@ async function displayCategories () {
     for(i=0; i<categories.length; i++){
         // Créer bouton API
         let filter = document.createElement("button");
+        let id = categories[i].id;
         // Propriétés
         filter.classList.add("filter");
         filter.type = "button";
@@ -44,37 +50,46 @@ async function displayCategories () {
         filter.textContent = `${categories[i].name}`;
         // Ajouter bouton
         filters.appendChild(filter);
-        // Event
+        // Event qui gère le style des boutons filtre
+        // (puis affiche la galerie)
         filter.addEventListener("click", function () {
             for(i=0; i<children.length; i++){
-                // Remove selected class
                 children[i].classList.remove("selectedFilter");
             }
             filter.classList.add("selectedFilter");
-            displayGallery();
+            // displayGallery()
+            // MODIF
+            if(filter.id === "filter-0"){
+                displayGallery("0");
+            }
+            else{
+                displayGallery(id);
+            }
+            // FIN MODIF
         })
     }
 }
 
-async function fetchWorks () {
-    const response = await fetch("http://localhost:5678/api/works");
-    if(!response.ok) {
-        throw new Error("Erreur HTTP! Statut : ${response.status}")
-    }
-    const json = await response.json();
-        return json;
-}
 
-async function displayGallery () {
+                          // MODIF
+
+async function displayGallery (id) {
     // Récupérer JSON
-    const worksList = await fetchWorks();
+    const worksList = await fetchFromAPI(WORKS_API);
     // console.log(worksList)
 
     // Sélectionner la div
     const gallery = document.querySelector(".gallery");
+    // Réinitialiser contenu div
     gallery.innerHTML = "";
 
     // Ajouter contenu
+    let filter = document.querySelectorAll(".filter");
+
+    if(filter[0].className === "selectedFilter"){
+        console.log("hello");
+    }
+
     for(i = 0; i<worksList.length; i++){
         // Créer les éléments
             // parent
@@ -97,13 +112,4 @@ async function displayGallery () {
 window.addEventListener("load", function(){
     displayCategories();
 })
-
-// EVENTS FILTRES
-
-// Container des boutons filtre
-filters = document.querySelector(".filters");
-// Tous les boutons filtre
-filter = document.querySelectorAll(".filter");
-
-filterZero = document.querySelector("#filter-0");
 
