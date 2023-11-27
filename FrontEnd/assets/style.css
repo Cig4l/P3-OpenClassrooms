@@ -111,9 +111,8 @@ h2{
 }
 
 .filter:hover{
-	border: 1px solid #1D6154;
-	background-color: #b6d3ce;
-	color: 1D6154;
+	border: 1px solid #B1663C;
+	color: #B1663C;
 }
 
 .selectedFilter, .selectedFilter:hover{
@@ -238,6 +237,10 @@ input[type="submit"]{
 	width: 180px;
 	text-align: center;
 	border-radius: 60px ;
+}
+
+input[type="submit"]:hover{
+	background-color: #B1663C;
 }
 
 footer nav ul {
