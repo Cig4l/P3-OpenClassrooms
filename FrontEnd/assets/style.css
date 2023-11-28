@@ -273,6 +273,13 @@ footer nav ul {
 	text-align: center;
 }
 
+.wrong-id {
+	margin-top: 20px;
+	text-align: center;
+	color: red;
+	display: none;
+}
+
 #email-login{
 	margin-bottom: 30px;
 }
@@ -285,3 +292,4 @@ footer nav ul {
 #forgotten-pw:hover{
 	color: #B1663C;
 }
+

@@ -10,7 +10,7 @@
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
 	<!-- defer = attend que la page soit complètement chargée pour lancer le script-->
-	<script src="script.js" defer></script>
+	<script src="login.js" defer></script>
 </head>
 <body>
 <header>
@@ -27,12 +27,13 @@
 <main>
     <section id="login">
 		<h2>Login</h2>
+		<p class="wrong-id"></p>
 		<form action="#" method="post">
 			<label for="email-login">Email</label>
 			<input type="email" name="email-login" id="email-login">
 			<label for="mdp-login">Mot de passe</label>
 			<input type="password" name="mdp-login" id="mdp-login">
-			<input type="submit" value="Se connecter">
+			<input type="submit" value="Se connecter" id="connexion-button">
             <a href="#" id="forgotten-pw">Mot de passe oublié</a>
 		</form>
 	</section>
