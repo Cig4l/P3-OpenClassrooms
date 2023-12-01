@@ -104,7 +104,7 @@ async function displayGallery (id) {
 
 //              Rafraîchit la gallerie quand la page est actualisée
 window.addEventListener("load", function(){
-    console.log(admin);
     displayCategories();
+    console.log(admin);
 })
 
