@@ -1,4 +1,4 @@
-const ADMIN = localStorage.getItem('admin');
+const ADMIN = JSON.parse(localStorage.getItem('admin'));
 //
 //                              RECUPERATION DES TRAVAUX
 //
@@ -105,6 +105,6 @@ async function displayGallery (id) {
 //              Rafraîchit la gallerie quand la page est actualisée
 window.addEventListener("load", function(){
     displayCategories();
-    console.log(admin);
+    console.log(ADMIN.token);
 })
 

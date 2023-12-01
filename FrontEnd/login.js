@@ -1,7 +1,7 @@
 // sophie.bluel@test.tld
 // S0phie
 
-//                            DOM
+//                                   DOM
 
 let emailLogin = document.getElementById("email-login");
 let mdpLogin = document.getElementById("mdp-login");
@@ -54,15 +54,15 @@ async function login () {
     console.log(admin);
 
     if(admin.token !== undefined){
-        localStorage.setItem('admin', 'admin');
-        console.log("rediriger vers accueil");
+        localStorage.setItem('admin', JSON.stringify(admin));
+        window.location.href = "index.html";
     }
 }
 
 //                          EVENT POUR SE CONNECTER
 
 connexionButton.addEventListener("click", function (event) {
-    // Annule le comportement par défaut du bouton de connexion
+    // Annule le comportement par défaut de connexionBouton
     event.preventDefault();
 
     WRONG_ID.innerText = "";        // Réinitialiser variable
