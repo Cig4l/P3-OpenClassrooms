@@ -13,7 +13,7 @@ let valueMdpLogin = mdpLogin.value;
 
 let connexionButton = document.getElementById("connexion-button");
 
-const WRONG_ID = document.getElementById("wrong-id");
+const WRONG_ID = document.querySelector(".wrong-id");
 
 // Variables stockant les infos de login
 
@@ -24,6 +24,11 @@ let LOGIN = {
 
 let LOGIN_JSON = "";
 
+let admin = {
+    "userId": undefined,
+    "token": undefined
+}
+
 // FONCTION FETCH POST LOGIN
 
 async function postLogin () {
@@ -33,7 +38,8 @@ async function postLogin () {
         body: LOGIN_JSON
     });
     if(!response.ok) {
-        throw new Error("Wrong ID or password")
+        WRONG_ID.innerText = "Oups";
+        // throw new Error("Wrong ID or password")
     }
     const json = await response.json();
     return json;
@@ -46,7 +52,7 @@ async function login () {
     const login = await postLogin();
     console.log(login);
 
-    const admin = {
+    admin = {
         "userId": await login.userId,
         "token": await login.token
     }
@@ -55,7 +61,7 @@ async function login () {
     if(admin.token !== undefined){
         return admin;
     }
-    WRONG_ID.innerText = "Oups";
+    
 }
 
 // EVENT POUR SE CONNECTER
@@ -63,6 +69,13 @@ async function login () {
 connexionButton.addEventListener("click", function (event) {
     // Annule le comportement par défaut du bouton de connexion
     event.preventDefault();
+
+    // Réinitialiser variables
+    WRONG_ID.innerText = "";
+    admin = {
+        "userId": undefined,
+        "token": undefined
+    }
 
     LOGIN = {
     "email": emailLogin.value,
