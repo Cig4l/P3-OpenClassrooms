@@ -1,17 +1,3 @@
-let LOGIN = {
-    "email": "",
-    "password": ""
-    }
+// import { admin } from './login.js';
 
-let LOGIN_JSON = "";
-
-LOGIN = {
-    "email": "@",
-    "password": "pw"
-    }
-
-LOGIN_JSON = JSON.stringify(LOGIN);
-
-console.log(LOGIN);
-
-console.log(LOGIN_JSON);
+// console.log(admin);

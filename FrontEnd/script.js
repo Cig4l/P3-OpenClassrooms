@@ -1,3 +1,4 @@
+const ADMIN = localStorage.getItem('admin');
 //
 //                              RECUPERATION DES TRAVAUX
 //
@@ -8,7 +9,7 @@ const WORKS_API = "http://localhost:5678/api/works";
 async function fetchFromAPI (url) {
     const response = await fetch(url);
     if(!response.ok) {
-        throw new Error("Erreur HTTP! Statut : ${response.status}")
+        throw new Error("Echec pendant la récupération des travaux")
     }
     const json = await response.json();
     return json;
@@ -103,6 +104,7 @@ async function displayGallery (id) {
 
 //              Rafraîchit la gallerie quand la page est actualisée
 window.addEventListener("load", function(){
+    console.log(admin);
     displayCategories();
 })
 
