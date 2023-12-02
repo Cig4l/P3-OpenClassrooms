@@ -70,7 +70,40 @@
 		</form>
 	</section>
 </main>
-
+<!-- PAGE 1 DE LA MODALE -->
+<div class="modal-container">
+	<div class="modal-icons">
+		<i class="fa-solid fa-xmark" style="color: #000000;"></i>
+	</div>
+	<h3 class="modale-title">Galerie photo</h3>
+	<div class="works-container"></div>
+	<input type="submit" value="Ajouter une photo">
+</div>
+<!-- PAGE 2 DE LA MODALE -->
+<div class="modal-container">
+	<div class="modal-icons">
+		<i class="fa-solid fa-arrow-left" style="color: #000000;"></i>
+		<i class="fa-solid fa-xmark" style="color: #000000;"></i>
+	</div>
+	<h3 class="modale-title">Ajout photo</h3>
+	<div class="ajouter-photo-container">
+		<i class="fa-regular fa-image" style="color: #CBD6DC;"></i>
+		<button id="ajouter-photo">+ Ajouter photo</button>
+		<p class="ajout-photo-subtitle">jpg, png : 4mo max</p>
+	</div>
+	<form action="#" method="post">
+		<label for="titre">Titre</label>
+		<input type="text" name="titre" id="titre">
+		<label for="categorie">Catégorie</label>
+		<select id="categorie" name="categorie">
+			<!-- A GENERER AVEC L'API -->
+			<option value="filter-1">Objets</option>
+			<option value="filter-2">Appartements</option>
+			<option value="filter-3">Italie</option>
+		</select>
+		<input type="submit" value="Valider">
+	</form>
+</div>
 <footer>
 	<nav>
 		<ul>

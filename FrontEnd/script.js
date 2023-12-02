@@ -6,6 +6,10 @@ const ADMIN = JSON.parse(localStorage.getItem('admin'));
 let loginLi = document.getElementById("login-li");
 let loginLink = document.getElementById("login-link");
 //
+//                                  DOM ADMIN
+const ADMIN_HEADER = document.querySelector(".admin-header");
+const MODIFIER_BUTTON = document.querySelector(".modifier-button");
+//
 //                              RECUPERATION DES TRAVAUX
 //
 const CATEGORIES_API = "http://localhost:5678/api/categories";
@@ -116,8 +120,11 @@ window.addEventListener("load", function(){
     }
     else{                      // si connecté
         loginLi.innerText = "logout";      //lien de déconnexion
+        ADMIN_HEADER.style.display = "flex";
+        MODIFIER_BUTTON.style.display = "flex";
         filterZero.style.display = "none"; // fait disparaître bouton-filtre "Tous"
         console.log(ADMIN.token);
+        displayGallery(0);
     } 
 })
 //

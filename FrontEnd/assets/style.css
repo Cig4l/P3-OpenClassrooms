@@ -67,7 +67,7 @@ section {
 
 .admin-header{
 	/* flex */
-	display: flex;
+	display: none;
 	justify-content: center;
 	gap: 8px;
 	/* box */
@@ -115,7 +115,7 @@ h2{
 
 .modifier-button{
 	/* flexbox */
-	display: flex;
+	display: none;
 	gap: 8px;
 	/* styling */
 	border: none;
@@ -200,6 +200,7 @@ li:active {
 #introduction {
 	display: flex;
 	align-items: center;
+	margin: auto auto 100px auto;
 }
 #introduction figure {
 	flex: 1
