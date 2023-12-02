@@ -11,7 +11,6 @@ let loginLink = document.getElementById("login-link");
 const CATEGORIES_API = "http://localhost:5678/api/categories";
 const WORKS_API = "http://localhost:5678/api/works";
 
-
 async function fetchFromAPI (url) {
     const response = await fetch(url);
     if(!response.ok) {
@@ -23,6 +22,8 @@ async function fetchFromAPI (url) {
 //
 //                               AFFICHER CATEGORIES 
 //
+const filterZero = document.getElementById("filter-0");
+
 async function displayCategories () {
     // Récupérer json
     const categories = await fetchFromAPI(CATEGORIES_API);
@@ -34,7 +35,6 @@ async function displayCategories () {
     let children = filters.children;
 
     // BOUTON TOUS
-    let filterZero = document.getElementById("filter-0");
     // Event Bouton Tous
     filterZero.addEventListener("click", function () {
         // selectFilter(this);
@@ -111,12 +111,14 @@ async function displayGallery (id) {
 // Rafraîchit la gallerie quand la page est actualisée
 window.addEventListener("load", function(){
     // Lien pour logout
-    if (ADMIN.token !== null){
-        loginLi.innerText = "logout";
+    if (ADMIN === null){        // si pas connecté
+        displayCategories();
     }
-
-    displayCategories(); 
-    console.log(ADMIN.token);
+    else{                      // si connecté
+        loginLi.innerText = "logout";      //lien de déconnexion
+        filterZero.style.display = "none"; // fait disparaître bouton-filtre "Tous"
+        console.log(ADMIN.token);
+    } 
 })
 //
 // Déconnexion quand on clique sur "logout"
