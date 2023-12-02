@@ -1,4 +1,10 @@
+//
+//                                   CONNEXION
+//
 const ADMIN = JSON.parse(localStorage.getItem('admin'));
+
+let loginLi = document.getElementById("login-li");
+let loginLink = document.getElementById("login-link");
 //
 //                              RECUPERATION DES TRAVAUX
 //
@@ -14,9 +20,9 @@ async function fetchFromAPI (url) {
     const json = await response.json();
     return json;
 }
-
+//
 //                               AFFICHER CATEGORIES 
-
+//
 async function displayCategories () {
     // Récupérer json
     const categories = await fetchFromAPI(CATEGORIES_API);
@@ -63,9 +69,9 @@ async function displayCategories () {
         })
     }
 }
-
+//
 //                           AFFICHER GALLERIE + FILTRER
-
+//
 async function displayGallery (id) {
     // Récupérer JSON
     let worksList = await fetchFromAPI(WORKS_API);
@@ -101,10 +107,26 @@ async function displayGallery (id) {
         galleryFigure.appendChild(galleryFigcaption);
     }
 }
-
-//              Rafraîchit la gallerie quand la page est actualisée
+//
+// Rafraîchit la gallerie quand la page est actualisée
 window.addEventListener("load", function(){
-    displayCategories();
+    // Lien pour logout
+    if (ADMIN.token !== null){
+        loginLi.innerText = "logout";
+    }
+
+    displayCategories(); 
     console.log(ADMIN.token);
 })
+//
+// Déconnexion quand on clique sur "logout"
+loginLink.addEventListener("click", function () {
+    if(loginLi.innerText === "logout"){
+        // console.log("clear LocalStorage");
+        localStorage.clear();
+    }
+})
+
+
+
 

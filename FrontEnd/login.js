@@ -20,8 +20,8 @@ let LOGIN = {
 let LOGIN_JSON = "";
 
 let admin = {
-    "userId": undefined,
-    "token": undefined
+    "userId": null,
+    "token": null
 }
 
 //                            FONCTION FETCH POST LOGIN
@@ -53,7 +53,7 @@ async function login () {
     }
     console.log(admin);
 
-    if(admin.token !== undefined){
+    if(admin.token !== null){
         localStorage.setItem('admin', JSON.stringify(admin));
         window.location.href = "index.html";
     }
@@ -67,8 +67,8 @@ connexionButton.addEventListener("click", function (event) {
 
     WRONG_ID.innerText = "";        // Réinitialiser variable
     admin = {                       // Réinitialiser objet
-        "userId": undefined,
-        "token": undefined
+        "userId": null,
+        "token": null
     } 
 
     LOGIN = {
