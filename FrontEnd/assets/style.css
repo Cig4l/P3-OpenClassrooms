@@ -104,6 +104,12 @@ h2{
 	color: #1D6154
 }
 
+h3{
+	font-size: 26px;
+	text-align: center;
+	margin-bottom: 35px;
+}
+
 .projets-header{
 	display: flex;
 	flex-direction: row;
@@ -285,14 +291,17 @@ input[type="submit"]{
 	font-weight: 700;
 	color: white;
 	background-color: #1D6154;
-	margin : 2em auto ;
-	width: 180px;
 	text-align: center;
 	border-radius: 60px ;
 }
 
+.main-submit-button{
+	margin : 2em auto ;
+	width: 180px;
+}
+
 input[type="submit"]:hover{
-	background-color: #B1663C;
+	background-color: #A7A7A7;
 }
 
 footer nav ul {
@@ -332,3 +341,53 @@ footer nav ul {
 	color: #B1663C;
 }
 
+/*                              MODALE                            */
+
+.modal-container {
+	margin: 0 auto;
+	width: 570px;
+	padding: 30px;
+	border-radius: 10px;
+	background-color: lavender;
+}
+
+.modal-icons{
+	display: flex;
+	justify-content: flex-end;
+	font-size: 20px;
+	margin-bottom: 10px;
+}
+
+.second-modal-container{
+	margin: 0 75px;
+}
+
+.works-container{
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 5px;
+	margin-bottom: 67px;
+}
+
+.works-test{
+	background-color: #B1663C;
+	/* flex-basis: 15%; */
+	width: 78px;
+	height: 104px;
+}
+
+hr{
+	color: #B3B3B3;
+	margin: 0 0 48px 0;
+}
+
+.modale-button{
+	/* border-top: 1px solid #B3B3B3; */
+	display: block;
+	width: 237px;
+	margin: 38px auto 0 auto;
+	padding: 10px 0;
+	margin: 0 auto;
+	border: none;
+}
