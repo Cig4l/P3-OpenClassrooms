@@ -341,7 +341,7 @@ footer nav ul {
 	color: #B1663C;
 }
 
-/*                              MODALE                            */
+/*                              modal                            */
 
 .edit-icon{
 	color: #000000;
@@ -380,7 +380,7 @@ footer nav ul {
 	margin-bottom: 67px;
 }
 
-.works-modale{
+.works-modal{
 	background-color: rgba(100, 100, 100, 0.3);
 	margin-top: 10px;
 	/* flex-basis: 15%; */
@@ -393,7 +393,7 @@ hr{
 	margin: 0 0 35px 0;
 }
 
-.modale-button{
+.modal-button{
 	/* border-top: 1px solid #B3B3B3; */
 	display: block;
 	width: 237px;
@@ -434,7 +434,7 @@ hr{
 	background-color: #c41f1f;
 }
 
-/* SECONDE PAGE MODALE */
+/* SECONDE PAGE modal */
 
 .ajouter-container{
 	background-color: #E8F1F6;
@@ -485,4 +485,35 @@ hr{
 
 #categorie{
 	margin-bottom: 47px;
+}
+
+/* Test */
+
+#modal-1{
+	z-index: 5;
+	display: none;					/* afficher modale 1*/
+}
+
+#modal-2{
+	z-index: 5;
+	/* display: none;				afficher modale 2 */
+}
+
+.relative-container{
+	top: 600px;
+	position: relative;
+	height: 0px;
+	margin: 0;
+}
+
+.background-gray{
+	position: relative;
+	top: -600Px;
+	z-index: 4;
+	background-color: rgba(0, 0, 0, 0.3);
+	margin-left: calc(-1 * ((100vw - 100%) / 2));
+	/* margin-left: calc(-1 * ((100vw - 100%) / 2)); */
+	width: 100vw;
+	height: 200vh;
+	padding: 0;
 }
