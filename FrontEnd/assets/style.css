@@ -348,12 +348,13 @@ footer nav ul {
 	width: 570px;
 	padding: 30px;
 	border-radius: 10px;
-	background-color: lavender;
+	background-color: white;
+	border: solid 1px gray;
 }
 
 .modal-icons{
 	display: flex;
-	justify-content: flex-end;
+	justify-content: space-between;
 	font-size: 20px;
 	margin-bottom: 10px;
 }
@@ -380,14 +381,14 @@ footer nav ul {
 
 hr{
 	color: #B3B3B3;
-	margin: 0 0 48px 0;
+	margin: 0 0 35px 0;
 }
 
 .modale-button{
 	/* border-top: 1px solid #B3B3B3; */
 	display: block;
 	width: 237px;
-	margin: 38px auto 0 auto;
+	margin: 38px auto 20px auto;
 	padding: 10px 0;
 	margin: 0 auto;
 	border: none;
@@ -422,4 +423,57 @@ hr{
 
 .trash-can-styling:hover{
 	background-color: #c41f1f;
+}
+
+/* SECONDE PAGE MODALE */
+
+.ajouter-photo-container{
+	background-color: #E8F1F6;
+	padding: 19px;
+	/* flexbox */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#ajouter-photo{
+	margin: 15px 0 7px 0;
+	padding: 10px 33px;
+	font-family: 'Work Sans', sans-serif;
+	font-size: 14px;
+	font-weight: 600;
+	color: #306685;
+	background-color: #CBD6DC;
+	border: none;
+	border-radius: 50px;
+}
+
+#ajouter-photo:hover{
+	color: #B1663C;
+}
+
+.ajout-photo-subtitle{
+	color: #444;
+}
+
+.ajout-photo-form{
+	margin-top: 30px;
+	display: flex;
+	flex-direction: column;
+}
+
+#titre, #categorie{
+	height: 50px;
+	margin-top: 10px;
+	border: none;
+	box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
+	background-color: white;
+}
+
+#titre{
+	margin-bottom: 21px;
+}
+
+#categorie{
+	margin-bottom: 47px;
 }

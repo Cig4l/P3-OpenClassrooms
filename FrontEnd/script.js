@@ -114,6 +114,7 @@ async function displayGallery (id) {
 //
 // Rafraîchit la gallerie quand la page est actualisée
 window.addEventListener("load", function(){
+    // displayGallery(0);
     // Lien pour logout
     if (ADMIN === null){        // si pas connecté
         displayCategories();
