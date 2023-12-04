@@ -28,24 +28,30 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+
 body {
 	line-height: 1;
 }
+
 ol, ul {
 	list-style: none;
 }
+
 blockquote, q {
 	quotes: none;
 }
+
 blockquote:before, blockquote:after,
 q:before, q:after {
 	content: '';
 	content: none;
 }
+
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
 /** end reset css**/
 body {
 	max-width: 1140px;
@@ -241,6 +247,13 @@ li:active {
 .gallery img {
 	width: 100%;
 
+}
+
+figcaption{
+	font-family: 'Work Sans', sans-serif;
+	color: #3D3D3D;
+	font-size: 14px;
+	padding-top: 6px;
 }
 
 /*                              FORMS                           */
@@ -491,12 +504,12 @@ hr{
 
 #modal-1{
 	z-index: 5;
-	display: none;					/* afficher modale 1*/
+	display: none;					/* dissimuler modale 1*/
 }
 
 #modal-2{
 	z-index: 5;
-	/* display: none;				afficher modale 2 */
+	display: none;					/* dissimuler modale 2 */
 }
 
 .relative-container{
@@ -506,13 +519,13 @@ hr{
 	margin: 0;
 }
 
-.background-gray{
+.background-gray{				/* fond gris transparent de la modale */
+	display: none; 					
 	position: relative;
 	top: -600Px;
 	z-index: 4;
 	background-color: rgba(0, 0, 0, 0.3);
 	margin-left: calc(-1 * ((100vw - 100%) / 2));
-	/* margin-left: calc(-1 * ((100vw - 100%) / 2)); */
 	width: 100vw;
 	height: 200vh;
 	padding: 0;

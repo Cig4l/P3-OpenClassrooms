@@ -7,10 +7,19 @@ let loginLi = document.getElementById("login-li");
 let loginLink = document.getElementById("login-link");
 //
 //                                  DOM ADMIN
+//
 const ADMIN_HEADER = document.querySelector(".admin-header");
 const MODIFIER_BUTTON = document.querySelector(".modifier-button");
 let editIcon = document.querySelector(".edit-icon");
-const modifierText = document.querySelector(".modifier-button p")
+const modifierText = document.querySelector(".modifier-button p");
+//
+//                                   MODALE
+//
+let backgroundGray = document.querySelector(".background-gray");
+let modalOne = document.getElementById("modal-1");      // page 1 de la modale
+let modalTwo = document.getElementById("modal-2");      // page 2 de la modale 
+let xmarkIconOne = document.querySelector("#modal-1 .xmark-icon");
+let xmarkIconTwo = document.querySelector("#modal-2 .xmark-icon");  
 //
 //                              RECUPERATION DES TRAVAUX
 //
@@ -149,9 +158,15 @@ MODIFIER_BUTTON.addEventListener("mouseout", function(){
     editIcon.style.color = "black";
     modifierText.style.color = "black";
 })
-
-// Apparition de la modal quand on clique sur MODIFIER_BUTTON
-
+//
+// Apparition de la modal quand on clique sur MODIFIER_BUsTTON
 MODIFIER_BUTTON.addEventListener("click", function() {
-    console.log("renommer les éléments avant de coder le CSS è.é ");
+    console.log("click");
+    backgroundGray.style.display = "block";
+    modalOne.style.display = "block";
+})
+
+xmarkIconOne.addEventListener("click", function() {
+    backgroundGray.style.display = "none";
+    modalOne.style.display = "none";
 })
