@@ -150,4 +150,8 @@ MODIFIER_BUTTON.addEventListener("mouseout", function(){
     modifierText.style.color = "black";
 })
 
+// Apparition de la modale quand on clique sur MODIFIER_BUTTON
 
+MODIFIER_BUTTON.addEventListener("click", function() {
+    console.log("renommer les éléments avant de coder le CSS è.é ");
+})

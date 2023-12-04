@@ -361,9 +361,14 @@ footer nav ul {
 	justify-content: space-between;
 	font-size: 20px;
 	margin-bottom: 10px;
+	color: black;
 }
 
-.second-modal-container{
+.modal-icons:hover{
+	color: rgba(0, 0, 0, 0.5);
+}
+
+.margin-container{
 	margin: 0 75px;
 }
 
@@ -371,11 +376,11 @@ footer nav ul {
 	display: flex;
 	/* justify-content: space-between; */
 	flex-wrap: wrap;
-	gap: 5px;
+	gap: 7.5px;
 	margin-bottom: 67px;
 }
 
-.works-test{
+.works-modale{
 	background-color: rgba(100, 100, 100, 0.3);
 	margin-top: 10px;
 	/* flex-basis: 15%; */
@@ -398,14 +403,14 @@ hr{
 	border: none;
 }
 
-#main-trash-can-container{
+#trashcan-container{
 	height: 0px;
 	margin: 0;
 	position: relative;
 	top: -419px;
 }
 
-.trash-can-container{
+.trashcan{
 	display: flex;
 	justify-content: flex-end;
 	background-color: transparent;
@@ -431,7 +436,7 @@ hr{
 
 /* SECONDE PAGE MODALE */
 
-.ajouter-photo-container{
+.ajouter-container{
 	background-color: #E8F1F6;
 	padding: 19px;
 	/* flexbox */
@@ -440,7 +445,7 @@ hr{
 	align-items: center;
 }
 
-#ajouter-photo{
+#ajouter{
 	margin: 15px 0 7px 0;
 	padding: 10px 33px;
 	font-family: 'Work Sans', sans-serif;
@@ -452,15 +457,15 @@ hr{
 	border-radius: 50px;
 }
 
-#ajouter-photo:hover{
+#ajouter:hover{
 	color: #B1663C;
 }
 
-.ajout-photo-subtitle{
+.ajouter-subtitle{
 	color: #444;
 }
 
-.ajout-photo-form{
+.ajout-form{
 	margin-top: 30px;
 	display: flex;
 	flex-direction: column;
