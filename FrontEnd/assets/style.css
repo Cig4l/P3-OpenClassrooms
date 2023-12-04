@@ -364,14 +364,15 @@ footer nav ul {
 
 .works-container{
 	display: flex;
-	justify-content: space-between;
+	/* justify-content: space-between; */
 	flex-wrap: wrap;
 	gap: 5px;
 	margin-bottom: 67px;
 }
 
 .works-test{
-	background-color: #B1663C;
+	background-color: rgba(100, 100, 100, 0.3);
+	margin-top: 10px;
 	/* flex-basis: 15%; */
 	width: 78px;
 	height: 104px;
@@ -390,4 +391,35 @@ hr{
 	padding: 10px 0;
 	margin: 0 auto;
 	border: none;
+}
+
+#main-trash-can-container{
+	height: 0px;
+	margin: 0;
+	position: relative;
+	top: -419px;
+}
+
+.trash-can-container{
+	display: flex;
+	justify-content: flex-end;
+	background-color: transparent;
+	margin-top: 10px;
+	width: 78px;
+	height: 104px;
+}
+
+.trash-can-styling{
+	background-color: black;
+	width: 13px;
+	height: 13px;
+	margin: 5px 5px 0 0;
+	border-radius: 2px;
+	padding: 3px;
+	font-size: 12px;
+	text-align: center;
+}
+
+.trash-can-styling:hover{
+	background-color: #c41f1f;
 }
