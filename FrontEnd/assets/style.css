@@ -343,6 +343,10 @@ footer nav ul {
 
 /*                              MODALE                            */
 
+.edit-icon{
+	color: #000000;
+}
+
 .modal-container {
 	margin: 0 auto;
 	width: 570px;

@@ -9,6 +9,8 @@ let loginLink = document.getElementById("login-link");
 //                                  DOM ADMIN
 const ADMIN_HEADER = document.querySelector(".admin-header");
 const MODIFIER_BUTTON = document.querySelector(".modifier-button");
+let editIcon = document.querySelector(".edit-icon");
+const modifierText = document.querySelector(".modifier-button p")
 //
 //                              RECUPERATION DES TRAVAUX
 //
@@ -136,7 +138,16 @@ loginLink.addEventListener("click", function () {
         localStorage.clear();
     }
 })
+//
+// Hover sur le bouton "modifier" de l'interface admin
+MODIFIER_BUTTON.addEventListener("mouseover", function(){
+    editIcon.style.color = "#B1663C";
+    modifierText.style.color = "#B1663C";
+})
 
-
+MODIFIER_BUTTON.addEventListener("mouseout", function(){
+    editIcon.style.color = "black";
+    modifierText.style.color = "black";
+})
 
 
