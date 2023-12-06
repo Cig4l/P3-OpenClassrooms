@@ -1,4 +1,3 @@
-const TRASH_ICON = document.querySelector("#trashcan-0 i");
 // 
 //                                  DOM CONNEXION
 //
@@ -25,6 +24,7 @@ let arrowLeftIcon = document.querySelector(".arrow-left-icon");
 let modalOne = document.getElementById("modal-1");      // page 1 de la modale
 const THUMBNAILS_CONTAINER = document.getElementById("th-container"); 
 const TRASHCAN_CONTAINER = document.getElementById("trashcan-container");
+// const TRASHCAN_BUTTONS = document.querySelectorAll(".trash-can-styling");
 // PAGE 2
 let modalTwo = document.getElementById("modal-2");      // page 2 de la modale 
 const NEXT_MODAL_BUTTON = document.getElementById("next-modal-button");
@@ -34,6 +34,7 @@ const NEXT_MODAL_BUTTON = document.getElementById("next-modal-button");
 //
 const CATEGORIES_API = "http://localhost:5678/api/categories";
 const WORKS_API = "http://localhost:5678/api/works";
+const DELETE_API = "http://localhost:5678/api/works/"
 
 async function fetchFromAPI (url) {
     const response = await fetch(url);
@@ -109,7 +110,7 @@ async function displayGallery (id) {
     // Sélectionner la div
     const gallery = document.querySelector(".gallery");
     // Réinitialiser contenu div
-    gallery.innerHTML = "";
+    gallery.textContent = "";
 
     // Ajouter contenu
     let filter = document.querySelectorAll(".filter");
@@ -136,6 +137,10 @@ async function displayGallery (id) {
 //
 async function displayThumbnails(){
     let worksList = await fetchFromAPI(WORKS_API);
+
+    // Réinitialisation
+    THUMBNAILS_CONTAINER.textContent = "";
+    TRASHCAN_CONTAINER.textContent = "";
 
     for(i=0; i<worksList.length; i++){
         // Figure
@@ -215,9 +220,9 @@ MODIFIER_BUTTON.addEventListener("click", function(){
     modalTwo.style.display = "none";
     modalOne.style.display = "block";
     displayThumbnails();
-    // TRASH ICON TEST
-    // TRASH_ICON.classList.add("fa-solid", "fa-trash-can", "trash-can-styling");
-    // TRASH_ICON.style.color = "white";
+    // TRASHCAN_BUTTONS.forEach(button => {
+    //     console.log();
+    //   });
 })
 //
 // Fermeture de la modale
