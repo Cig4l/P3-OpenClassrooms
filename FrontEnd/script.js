@@ -1,4 +1,5 @@
-//
+const TRASH_ICON = document.querySelector("#trashcan-0 i");
+// 
 //                                  DOM CONNEXION
 //
 const ADMIN = JSON.parse(localStorage.getItem('admin'));
@@ -16,12 +17,18 @@ const modifierText = document.querySelector(".modifier-button p");
 //                                 DOM MODALE
 //
 let backgroundGray = document.querySelector(".background-gray");
-let modalOne = document.getElementById("modal-1");      // page 1 de la modale
-let modalTwo = document.getElementById("modal-2");      // page 2 de la modale 
+// Icônes
 let xmarkIconOne = document.querySelector("#modal-1 .xmark-icon");
 let xmarkIconTwo = document.querySelector("#modal-2 .xmark-icon");
-const NEXT_MODAL_PAGE = document.getElementById("next-modal-page");
 let arrowLeftIcon = document.querySelector(".arrow-left-icon");  
+// PAGE 1
+let modalOne = document.getElementById("modal-1");      // page 1 de la modale
+const THUMBNAILS_CONTAINER = document.getElementById("th-container"); 
+const TRASHCAN_CONTAINER = document.getElementById("trashcan-container");
+// PAGE 2
+let modalTwo = document.getElementById("modal-2");      // page 2 de la modale 
+const NEXT_MODAL_BUTTON = document.getElementById("next-modal-button");
+
 //
 //                              RECUPERATION DES TRAVAUX
 //
@@ -125,6 +132,39 @@ async function displayGallery (id) {
     }
 }
 //
+//                    AFFICHER MINIATURES DE LA MODALE
+//
+async function displayThumbnails(){
+    let worksList = await fetchFromAPI(WORKS_API);
+
+    for(i=0; i<worksList.length; i++){
+        // Figure
+        let thumbnailsFigure = document.createElement("figure");
+        thumbnailsFigure.classList.add("thumbnails-figure");
+        thumbnailsFigure.id = `th-figure-${worksList[i].userId}`;
+        THUMBNAILS_CONTAINER.appendChild(thumbnailsFigure);
+        // Img
+        let thumbnailsImg = document.createElement("img");
+        thumbnailsImg.classList.add("thumbnails-img");
+        thumbnailsImg.id = `th-img-${worksList[i].userId}`;
+        thumbnailsImg.src = worksList[i].imageUrl;
+        thumbnailsImg.alt = worksList[i].title;
+        thumbnailsFigure.appendChild(thumbnailsImg);
+        // Trash can button
+        let trashcanButton = document.createElement("button");
+        trashcanButton.classList.add("trashcan");
+        trashcanButton.type = "button";
+        trashcanButton.id = `trashcan-${worksList[i].userId}`;
+        TRASHCAN_CONTAINER.appendChild(trashcanButton);
+        // Trash can icon
+        let trashcanIcon = document.createElement("i");
+        trashcanIcon.classList.add("fa-solid", "fa-trash-can", "trash-can-styling");
+        trashcanIcon.style.color = "white";
+        trashcanIcon.id = `tc-icon-${worksList[i].userId}`;
+        trashcanButton.appendChild(trashcanIcon);
+    }
+}
+//
 // Rafraîchit la gallerie quand la page est actualisée
 //
 window.addEventListener("load", function(){
@@ -169,11 +209,15 @@ MODIFIER_BUTTON.addEventListener("mouseout", function(){
     modifierText.style.color = "black";
 })
 //
-// Apparition de la modal quand on clique sur MODIFIER_BUTTON
+// Apparition de la modale quand on clique sur MODIFIER_BUTTON
 MODIFIER_BUTTON.addEventListener("click", function(){
     backgroundGray.style.display = "block";
     modalTwo.style.display = "none";
     modalOne.style.display = "block";
+    displayThumbnails();
+    // TRASH ICON TEST
+    // TRASH_ICON.classList.add("fa-solid", "fa-trash-can", "trash-can-styling");
+    // TRASH_ICON.style.color = "white";
 })
 //
 // Fermeture de la modale
@@ -188,7 +232,7 @@ xmarkIconTwo.addEventListener("click", function(){
 })
 //
 // Aller à la page suivante de la modale
-NEXT_MODAL_PAGE.addEventListener("click", function(){
+NEXT_MODAL_BUTTON.addEventListener("click", function(){
     modalOne.style.display = "none";
     modalTwo.style.display = "block";
 })
