@@ -55,7 +55,7 @@ async function login () {
 
     if(admin.token !== null){
         localStorage.setItem('admin', JSON.stringify(admin));
-        window.location.href = "index.html";
+        window.location.href = "admin.html";
     }
 }
 
