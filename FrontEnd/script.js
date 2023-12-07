@@ -35,7 +35,9 @@ const NEXT_MODAL_BUTTON = document.getElementById("next-modal-button");
 const CATEGORIES_API = "http://localhost:5678/api/categories";
 const WORKS_API = "http://localhost:5678/api/works";
 const DELETE_API = "http://localhost:5678/api/works/"
-
+//
+//
+//
 async function fetchFromAPI (url) {
     const response = await fetch(url);
     if(!response.ok) {
@@ -62,7 +64,6 @@ async function displayCategories () {
     // BOUTON TOUS
     // Event Bouton Tous
     filterZero.addEventListener("click", function () {
-        // selectFilter(this);
         for(i=0; i<children.length; i++){
             // Remove selected class
             children[i].classList.remove("selectedFilter");
@@ -140,18 +141,21 @@ async function displayThumbnails(){
 
     // Réinitialisation
     THUMBNAILS_CONTAINER.textContent = "";
-    TRASHCAN_CONTAINER.textContent = "";
+    // TRASHCAN_CONTAINER.textContent = "";
+    trashcanList = [];
 
     for(i=0; i<worksList.length; i++){
+        // Asynchrony
+        let ApiId = await worksList[i].id;
         // Figure
         let thumbnailsFigure = document.createElement("figure");
         thumbnailsFigure.classList.add("thumbnails-figure");
-        thumbnailsFigure.id = `th-figure-${worksList[i].userId}`;
+        thumbnailsFigure.id = `th-figure-${worksList[i].id}`;
         THUMBNAILS_CONTAINER.appendChild(thumbnailsFigure);
         // Img
         let thumbnailsImg = document.createElement("img");
         thumbnailsImg.classList.add("thumbnails-img");
-        thumbnailsImg.id = `th-img-${worksList[i].userId}`;
+        thumbnailsImg.id = `th-img-${worksList[i].id}`;
         thumbnailsImg.src = worksList[i].imageUrl;
         thumbnailsImg.alt = worksList[i].title;
         thumbnailsFigure.appendChild(thumbnailsImg);
@@ -159,17 +163,65 @@ async function displayThumbnails(){
         let trashcanButton = document.createElement("button");
         trashcanButton.classList.add("trashcan");
         trashcanButton.type = "button";
-        trashcanButton.id = `trashcan-${worksList[i].userId}`;
-        TRASHCAN_CONTAINER.appendChild(trashcanButton);
+        trashcanButton.id = `trashcan-${worksList[i].id}`;
+        thumbnailsFigure.appendChild(trashcanButton);
         // Trash can icon
         let trashcanIcon = document.createElement("i");
         trashcanIcon.classList.add("fa-solid", "fa-trash-can", "trash-can-styling");
         trashcanIcon.style.color = "white";
-        trashcanIcon.id = `tc-icon-${worksList[i].userId}`;
+        trashcanIcon.id = `tc-icon-${worksList[i].id}`;
         trashcanButton.appendChild(trashcanIcon);
+        // Remove work
+        let trashCanIconId = document.getElementById(trashcanIcon.id);
+        trashCanIconId.addEventListener("click", function(event){
+            event.preventDefault();
+            // Vérifs
+            console.log("HTML ID :" + trashcanIcon.id);
+            console.log("API ID :" + ApiId);
+            // Suppression
+            deleteWork(ApiId);
+            event.stopPropagation();
+        })
     }
 }
 //
+//                            SUPPRIMER DES TRAVAUX
+//
+async function deleteWork(workId){
+    // Constantes
+    const stringId = await workId.toString();    // version string de l'ID du travail à delete
+    const url = DELETE_API + stringId;
+    const token = ADMIN.token;
+    const userId = ADMIN.userId;
+    // Fetch
+    const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+            'Accept': '*/*',
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+        },
+        // pas de body dans une requête DELETE
+    });
+    // Gestion des erreurs
+    if (response.status === 200) {
+        console.log(`La suppression du travail avec l'ID ${id} a réussi.`);
+    }
+    else if(response.status === 401){
+        throw new Error(`Vous n'êtes pas autorisée à supprimer un item.`);
+    } 
+    else{
+        throw new Error(`Comportement inattendu.`);
+    }
+}
+//
+//                  CHARGER CATEGORIES TRAVAUX (FORM MODALE AJOUT TRAVAUX)
+//
+//
+async function dis () {
+    return true;
+}
+
 // Rafraîchit la gallerie quand la page est actualisée
 //
 window.addEventListener("load", function(){
@@ -220,9 +272,6 @@ MODIFIER_BUTTON.addEventListener("click", function(){
     modalTwo.style.display = "none";
     modalOne.style.display = "block";
     displayThumbnails();
-    // TRASHCAN_BUTTONS.forEach(button => {
-    //     console.log();
-    //   });
 })
 //
 // Fermeture de la modale
@@ -247,3 +296,6 @@ arrowLeftIcon.addEventListener("click", function(){
     modalTwo.style.display = "none";
     modalOne.style.display = "block";
 })
+// Test
+
+

@@ -28,8 +28,8 @@
 						<h3 class="modal-title">Galerie photo</h3>
 						<div class="thumbnails-container" id="th-container">
 						</div>
-						<div class="thumbnails-container" id="trashcan-container">
-						</div>
+						<!-- <div class="thumbnails-container" id="trashcan-container">
+						</div> -->
 						<hr>
 						<input type="submit" value="Ajouter une photo" class="modal-button" id="next-modal-button">
 					</div>
@@ -46,7 +46,8 @@
 						<h3 class="modal-title">Ajout photo</h3>
 						<div class="ajouter-container">
 							<i class="fa-regular fa-image landscape-icon" style="color: #CBD6DC; font-size: 70px;"></i>
-							<button id="ajouter">+ Ajouter photo</button>
+							<label class="custom-file-input" for="fileInput">+ Ajouter photo</label>
+							<input type="file" id="fileInput"></input>
 							<p class="ajouter-subtitle">jpg, png : 4mo max</p>
 						</div>
 						<form action="#" method="post" class="ajout-form">
@@ -55,9 +56,9 @@
 							<label for="categorie">Catégorie</label>
 							<select id="categorie" name="categorie">
 								<!-- A GENERER AVEC L'API -->
-								<option value="filter-1">Objets</option>
+								<!-- <option value="filter-1">Objets</option>
 								<option value="filter-2">Appartements</option>
-								<option value="filter-3">Italie</option>
+								<option value="filter-3">Italie</option> -->
 							</select>
 							<hr>
 							<input type="submit" value="Valider" class="modal-button">

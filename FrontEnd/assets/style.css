@@ -394,10 +394,13 @@ footer nav ul {
 }
 
 .thumbnails-figure{
-	/* background-color: rgba(100, 100, 100, 0.3); */
 	margin-top: 10px;
 	width: 78px;
-	height: 104px;
+	/* height: 104px; */
+	height: 120px;
+	/* flexbox */
+	display: flex;
+	flex-direction: column;
 }
 
 .thumbnails-img{
@@ -422,21 +425,23 @@ hr{
 	border: none;
 }
 
-#trashcan-container{
+/* #trashcan-container{
 	height: 0px;
 	margin: 0;
 	position: relative;
 	top: -419px;
-}
+} */
 
 .trashcan{
 	display: flex;
 	justify-content: flex-end;
+	flex-basis: 0%;
 	background-color: transparent;
-	margin-top: 10px;
-	width: 78px;
-	height: 104px;
 	border: 0;
+	/* position */
+	position: relative;
+	top: -94px;
+	z-index: 6;
 }
 
 .trash-can-styling{
@@ -465,7 +470,11 @@ hr{
 	align-items: center;
 }
 
-#ajouter{
+input[type="file"] {
+	display: none;
+  }
+
+.custom-file-input {
 	margin: 15px 0 7px 0;
 	padding: 10px 33px;
 	font-family: 'Work Sans', sans-serif;
@@ -477,7 +486,7 @@ hr{
 	border-radius: 50px;
 }
 
-#ajouter:hover{
+  .custom-file-input:hover{
 	color: #B1663C;
 }
 
@@ -507,7 +516,9 @@ hr{
 	margin-bottom: 47px;
 }
 
-/* Test */
+
+
+/* Display Modale */
 
 #modal-1{
 	z-index: 5;
