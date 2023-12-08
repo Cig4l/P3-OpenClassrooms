@@ -162,7 +162,7 @@ async function displayThumbnails(){
         // Trash can button
         let trashcanButton = document.createElement("button");
         trashcanButton.classList.add("trashcan");
-        trashcanButton.type = "button";
+        trashcanButton.type = "submit";
         trashcanButton.id = `trashcan-${worksList[i].id}`;
         thumbnailsFigure.appendChild(trashcanButton);
         // Trash can icon
@@ -173,14 +173,17 @@ async function displayThumbnails(){
         trashcanButton.appendChild(trashcanIcon);
         // Remove work
         let trashCanIconId = document.getElementById(trashcanIcon.id);
-        trashCanIconId.addEventListener("click", function(event){
-            event.preventDefault();
-            // Vérifs
-            console.log("HTML ID :" + trashcanIcon.id);
-            console.log("API ID :" + ApiId);
-            // Suppression
-            deleteWork(ApiId);
-            event.stopPropagation();
+        trashCanIconId.addEventListener("click", function () {
+            trashcanButton.click();
+            trashcanButton.addEventListener("click", function(event){
+                event.preventDefault();
+                // Vérifs
+                console.log("HTML ID :" + trashcanIcon.id);
+                console.log("API ID :" + ApiId);
+                // Suppression
+                deleteWork(ApiId);
+                // event.stopPropagation();
+            })
         })
     }
 }
