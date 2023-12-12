@@ -173,9 +173,7 @@ async function displayThumbnails(){
         trashcanButton.appendChild(trashcanIcon);
         // Remove work
         let trashCanIconId = document.getElementById(trashcanIcon.id);
-        trashCanIconId.addEventListener("click", function () {
-            trashcanButton.click();
-            trashcanButton.addEventListener("click", function(event){
+        trashCanIconId.addEventListener("click", function (event) {
                 event.preventDefault();
                 // Vérifs
                 console.log("HTML ID :" + trashcanIcon.id);
@@ -183,7 +181,6 @@ async function displayThumbnails(){
                 // Suppression
                 deleteWork(ApiId);
                 // event.stopPropagation();
-            })
         })
     }
 }
