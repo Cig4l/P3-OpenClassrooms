@@ -24,6 +24,8 @@ let ADMIN = {
     "token": null
 }
 
+let is_connecting = false;
+
 //                            FONCTION FETCH POST LOGIN
 
 async function postLogin () {
@@ -55,6 +57,8 @@ async function login () {
 
     if(ADMIN.token !== null){
         localStorage.setItem('ADMIN', JSON.stringify(ADMIN));
+        is_connecting = true;
+        localStorage.setItem('is_connecting', JSON.stringify(is_connecting));
         window.location.href = "index.html";                    // redirection
     }
 }

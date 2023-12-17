@@ -1,7 +1,10 @@
 // 
 //                                  DOM CONNEXION
 //
-const ADMIN = JSON.parse(localStorage.getItem('admin'));
+let ADMIN = JSON.parse(localStorage.getItem('admin'));
+let is_connecting = JSON.parse(localStorage.getItem('is_connecting'));
+
+// let is_connected = false;
 
 let loginLi = document.getElementById("login-li");
 let loginLink = document.getElementById("login-link");
@@ -225,35 +228,46 @@ async function dis () {
 // Rafraîchit la gallerie quand la page est actualisée
 //
 window.addEventListener("load", function(event){
+    // CHARGEMENT & ACTUALISATION
+
+    ADMIN = JSON.parse(localStorage.getItem('ADMIN'));
+    
     if (window.performance && window.performance.getEntriesByType) {
         var navigationEntries = window.performance.getEntriesByType('navigation');
+        console.log(window.location.href);
         if (navigationEntries.length > 0) {
             var navigationType = navigationEntries[0].type;
-            if (navigationType === 'reload') {             // actualisation
-                console.log('La page a été rechargée');
+            if(navigationType !== 'reload' && window.location.href == 'http://127.0.0.1:5500/FrontEnd/index.html' && is_connecting === true) {
+                console.log("connexion et redirection vers la page d'accueil");
+                is_connecting = false;
+                
+            }
+            else if(navigationType === 'reload') {              
+                console.log('La page a été actualisée');
+                console.log(ADMIN)
+                if(ADMIN !== null) console.log(ADMIN.token);
             } 
-            else {                                         // page chargée pour la 1e fois
-                console.log('La page a été chargée normalement');
+            else {                                         
+                console.log('La page a été chargée pour la 1e fois');
                 ADMIN.userId = null;
                 ADMIN.token = null;
-                console.log("token");
-                console.log(ADMIN.token);
+                localStorage.clear();
             }
         }
     }
-    
     event.preventDefault();
-    // displayGallery(0);
-    // Lien pour logout
-    if (ADMIN === null){        // si pas connecté
+    // AFFICHAGE : USER VS ADMIN
+    if (ADMIN === null){        // affichage si pas connecté
         displayCategories();
+        console.log("admin is null");
     }
-    else{                      // si connecté
+    else{                      // affichage si connecté
         loginLi.innerText = "logout";      //lien de déconnexion
         ADMIN_HEADER.style.display = "flex";
         MODIFIER_BUTTON.style.display = "flex";
         filterZero.style.display = "none"; // fait disparaître bouton-filtre "Tous"
         console.log(ADMIN.token);
+        console.log("admin is not null");
         displayGallery(0);
     } 
 })
