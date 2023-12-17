@@ -55,12 +55,12 @@ async function displayCategories () {
     // Récupérer json
     const categories = await fetchFromAPI(CATEGORIES_API);
     console.log(categories);
-
+    
     // Sélectionner la div
     const filters = document.querySelector(".filters");
     // Children
     let children = filters.children;
-
+    
     // BOUTON TOUS
     // Event Bouton Tous
     filterZero.addEventListener("click", function () {
@@ -71,7 +71,7 @@ async function displayCategories () {
         filterZero.classList.add("selectedFilter");
         displayGallery(0);
     });
-
+    
     // AUTRES BOUTONS
     for(i=0; i<categories.length; i++){
         // Créer bouton API
@@ -102,32 +102,32 @@ async function displayGallery (id) {
     // Récupérer JSON
     let worksList = await fetchFromAPI(WORKS_API);
     // console.log(worksList)
-
+    
     // Filtrage si l'id n'est pas 0 (bouton filtre Tous)
     if(id !== 0) {
         worksList = worksList.filter(work => work.categoryId === id);
     }
-
+    
     // Sélectionner la div
     const gallery = document.querySelector(".gallery");
     // Réinitialiser contenu div
     gallery.textContent = "";
-
+    
     // Ajouter contenu
     let filter = document.querySelectorAll(".filter");
-
+    
     for(j = 0; j<worksList.length; j++){
         // Créer les éléments
-            // parent
+        // parent
         let galleryFigure = document.createElement("figure");
-            // enfants
+        // enfants
         let galleryImg = document.createElement("img");
         let galleryFigcaption = document.createElement("figcaption");
-
+        
         galleryImg.src = worksList[j].imageUrl;
         galleryImg.alt = worksList[j].title;
         galleryFigcaption.innerText = worksList[j].title;
-
+        
         gallery.appendChild(galleryFigure);
         galleryFigure.appendChild(galleryImg);
         galleryFigure.appendChild(galleryFigcaption);
@@ -138,12 +138,12 @@ async function displayGallery (id) {
 //
 async function displayThumbnails(){
     let worksList = await fetchFromAPI(WORKS_API);
-
+    
     // Réinitialisation
     THUMBNAILS_CONTAINER.textContent = "";
     // TRASHCAN_CONTAINER.textContent = "";
     trashcanList = [];
-
+    
     for(i=0; i<worksList.length; i++){
         // Asynchrony
         let ApiId = await worksList[i].id;
@@ -174,13 +174,13 @@ async function displayThumbnails(){
         // Remove work
         let trashCanIconId = document.getElementById(trashcanIcon.id);
         trashCanIconId.addEventListener("click", function (event) {
-                event.preventDefault();
-                // Vérifs
-                console.log("HTML ID :" + trashcanIcon.id);
-                console.log("API ID :" + ApiId);
-                // Suppression
-                deleteWork(ApiId);
-                // event.stopPropagation();
+            event.preventDefault();
+            // Vérifs
+            console.log("HTML ID :" + trashcanIcon.id);
+            console.log("API ID :" + ApiId);
+            // Suppression
+            deleteWork(ApiId);
+            // event.stopPropagation();
         })
     }
 }
@@ -221,10 +221,28 @@ async function deleteWork(workId){
 async function dis () {
     return true;
 }
-
+//
 // Rafraîchit la gallerie quand la page est actualisée
 //
-window.addEventListener("load", function(){
+window.addEventListener("load", function(event){
+    if (window.performance && window.performance.getEntriesByType) {
+        var navigationEntries = window.performance.getEntriesByType('navigation');
+        if (navigationEntries.length > 0) {
+            var navigationType = navigationEntries[0].type;
+            if (navigationType === 'reload') {             // actualisation
+                console.log('La page a été rechargée');
+            } 
+            else {                                         // page chargée pour la 1e fois
+                console.log('La page a été chargée normalement');
+                ADMIN.userId = null;
+                ADMIN.token = null;
+                console.log("token");
+                console.log(ADMIN.token);
+            }
+        }
+    }
+    
+    event.preventDefault();
     // displayGallery(0);
     // Lien pour logout
     if (ADMIN === null){        // si pas connecté

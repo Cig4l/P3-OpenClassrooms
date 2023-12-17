@@ -15,11 +15,11 @@ const WRONG_ID = document.querySelector(".wrong-id");
 let LOGIN = {
     "email": "",
     "password": ""
-    }
+}
 
 let LOGIN_JSON = "";
 
-let admin = {
+let ADMIN = {
     "userId": null,
     "token": null
 }
@@ -47,15 +47,15 @@ async function login () {
     // Récupération de l'userId + token
     const login = await postLogin();
 
-    admin = {
+    ADMIN = {
         "userId": await login.userId,
         "token": await login.token
     }
-    console.log(admin);
+    console.log(ADMIN);
 
-    if(admin.token !== null){
-        localStorage.setItem('admin', JSON.stringify(admin));
-        window.location.href = "admin.html";
+    if(ADMIN.token !== null){
+        localStorage.setItem('ADMIN', JSON.stringify(ADMIN));
+        window.location.href = "index.html";                    // redirection
     }
 }
 
@@ -66,7 +66,7 @@ connexionButton.addEventListener("click", function (event) {
     event.preventDefault();
 
     WRONG_ID.innerText = "";        // Réinitialiser variable
-    admin = {                       // Réinitialiser objet
+    ADMIN = {                       // Réinitialiser objet
         "userId": null,
         "token": null
     } 

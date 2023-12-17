@@ -14,6 +14,73 @@
 	<script src="https://kit.fontawesome.com/b96ad7f772.js" crossorigin="anonymous"></script>
 </head>
 <body>
+	<!---->
+	<!---->
+								<!-- INTERFACE ADMIN -->
+	<!---->
+	<!---->
+	<div class="relative-container">
+		<div class="background-gray">
+			<!---->
+								<!-- PAGE 1 DE LA MODALE -->
+			<!---->
+			<section class="relative-container">
+				<div class="modal-container" id="modal-1">
+					<div class="modal-icons">
+						<i></i>		<!-- pour flexbox (space-between) -->
+						<i class="fa-solid fa-xmark xmark-icon"></i>
+					</div>
+					<div class="margin-container">
+						<h3 class="modal-title">Galerie photo</h3>
+						<div class="thumbnails-container" id="th-container">
+						</div>
+						<!-- <div class="thumbnails-container" id="trashcan-container">
+						</div> -->
+						<hr>
+						<input type="submit" value="Ajouter une photo" class="modal-button" id="next-modal-button">
+					</div>
+				</div>
+			</section>
+			<!---->
+								<!-- PAGE 2 DE LA MODALE -->
+			<!---->
+			<section class="relative-container">
+				<div class="modal-container" id="modal-2">
+					<div class="modal-icons">
+						<i class="fa-solid fa-arrow-left arrow-left-icon"></i>
+						<i class="fa-solid fa-xmark xmark-icon"></i>
+					</div>
+					<div class="margin-container">
+						<h3 class="modal-title">Ajout photo</h3>
+						<div class="ajouter-container">
+							<i class="fa-regular fa-image landscape-icon" style="color: #CBD6DC; font-size: 70px;"></i>
+							<label class="custom-file-input" for="fileInput">+ Ajouter photo</label>
+							<input type="file" id="fileInput"></input>
+							<p class="ajouter-subtitle">jpg, png : 4mo max</p>
+						</div>
+						<form action="#" method="post" class="ajout-form">
+							<label for="titre">Titre</label>
+							<input type="text" name="titre" id="titre">
+							<label for="categorie">Catégorie</label>
+							<select id="categorie" name="categorie">
+							</select>
+							<hr>
+							<input type="submit" value="Valider" class="modal-button">
+						</form>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+<div class="admin-header">
+	<i class="fa-regular fa-pen-to-square" style="color: #ffffff;"></i>
+	<p>Mode édition</p>
+</div>
+	<!---->
+	<!---->
+									<!-- HEADER -->
+	<!---->
+	<!---->
 <header>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
@@ -40,10 +107,12 @@
 	<section id="portfolio">
 		<div class="projets-header">
 			<h2>Mes Projets</h2>
+			<!-- Bouton Modifier - Interface ADMIN -->
 			<button class="modifier-button">
 				<i class="fa-regular fa-pen-to-square edit-icon"></i>
 				<p>modifier</p>
 			</button>
+			<!---->
 		</div>
 		<div class="filters">
 			<button class="filter" id="filter-0" type="button">Tous</button>
