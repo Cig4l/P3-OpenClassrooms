@@ -187,8 +187,6 @@ async function displayThumbnails(){
             console.log("API ID :" + ApiId);
             // Suppression
             deleteWork(ApiId);
-            // backgroundGray.style.display = "block";
-            // modalOne.style.display = "block";
         })
     }
 }
@@ -219,7 +217,8 @@ async function deleteWork(workId){
         throw new Error(`Vous n'êtes pas autorisée à supprimer un item.`);
     } 
     else{
-        throw new Error(`Comportement inattendu.`);
+        console.log(`Comportement inattendu. Code : ${response.status}`);
+        // throw new Error(`Comportement inattendu.`);
     }
 }
 //
@@ -231,44 +230,6 @@ async function deleteWork(workId){
 window.addEventListener("load", function(event){
     localStorage.getItem("isModalOneOpen", "false")
     let isModalOneOpen = JSON.parse(localStorage.getItem('isModalOneOpen'));
-    // Apparition de la modale quand on clique sur MODIFIER_BUTTON
-MODIFIER_BUTTON.addEventListener("click", function(){
-    localStorage.setItem("isModalOneOpen", "true");
-    isModalOneOpen = JSON.parse(localStorage.getItem("isModalOneOpen"));
-    checkModalState(isModalOneOpen);
-    console.log(`isModalOneOpen : ${isModalOneOpen}`);
-})
-//
-// Fermeture de la modale
-xmarkIconOne.addEventListener("click", function(){
-    localStorage.setItem("isModalOneOpen", "false");
-    isModalOneOpen = JSON.parse(localStorage.getItem("isModalOneOpen"));
-    backgroundGray.style.display = "none";
-    modalOne.style.display = "none";
-})
-
-xmarkIconTwo.addEventListener("click", function(){
-    localStorage.setItem("isModalOneOpen", "false");
-    isModalOneOpen = JSON.parse(localStorage.getItem("isModalOneOpen"));
-    backgroundGray.style.display = "none";
-    modalOne.style.display = "none";
-})
-//
-// Aller à la page suivante de la modale
-NEXT_MODAL_BUTTON.addEventListener("click", function(){
-    localStorage.setItem("isModalOneOpen", "false");
-    isModalOneOpen = JSON.parse(localStorage.getItem("isModalOneOpen"));
-    modalOne.style.display = "none";
-    modalTwo.style.display = "block";
-})
-//
-//  Retourner à la page précédente de la modale
-arrowLeftIcon.addEventListener("click", function(){
-    localStorage.setItem("isModalOneOpen", "true");
-    isModalOneOpen = JSON.parse(localStorage.getItem("isModalOneOpen"));
-    modalTwo.style.display = "none";
-    modalOne.style.display = "block";
-})
     //
     // CHARGEMENT & ACTUALISATION
     //
@@ -302,8 +263,6 @@ arrowLeftIcon.addEventListener("click", function(){
                 console.log(`isModalOneOpen : ${isModalOneOpen}`);      
                 console.log('La page a été actualisée');
                 console.log(`is_connecting : ${is_connecting}`);
-                // console.log(ADMIN)
-                // if(ADMIN !== null) console.log(ADMIN.token);
             } 
             else {                                         
                 console.log('La page a été chargée pour la 1e fois');
@@ -375,46 +334,41 @@ function checkModalState(isModalOneOpen){
     }
 }
 
-//
-// // Apparition de la modale quand on clique sur MODIFIER_BUTTON
-// MODIFIER_BUTTON.addEventListener("click", function(){
-//     isModalOneOpen = true;
-//     checkModalState(isModalOneOpen);
-//     console.log(isModalOneOpen);
-//     // backgroundGray.style.display = "block";
-//     // modalTwo.style.display = "none";
-//     // modalOne.style.display = "block";
-//     // displayThumbnails();
-// })
-// //
-// // Fermeture de la modale
-// xmarkIconOne.addEventListener("click", function(){
-//     console.log("je suis passé par croix 1");
-//     isModalOneOpen = false;
-//     backgroundGray.style.display = "none";
-//     modalOne.style.display = "none";
-// })
-
-// xmarkIconTwo.addEventListener("click", function(){
-//     console.log("je suis passé par croix 2");
-//     isModalOneOpen = false;
-//     backgroundGray.style.display = "none";
-//     modalOne.style.display = "none";
-// })
-// //
-// // Aller à la page suivante de la modale
-// NEXT_MODAL_BUTTON.addEventListener("click", function(){
-//     isModalOneOpen = false;
-//     modalOne.style.display = "none";
-//     modalTwo.style.display = "block";
-// })
-// //
-// //  Retourner à la page précédente de la modale
-// arrowLeftIcon.addEventListener("click", function(){
-//     isModalOneOpen = true;
-//     modalTwo.style.display = "none";
-//     modalOne.style.display = "block";
-// })
-// Test
-
-
+    // Apparition de la modale quand on clique sur MODIFIER_BUTTON
+    MODIFIER_BUTTON.addEventListener("click", function(){
+        localStorage.setItem("isModalOneOpen", "true");
+        isModalOneOpen = JSON.parse(localStorage.getItem("isModalOneOpen"));
+        checkModalState(isModalOneOpen);
+        console.log(`isModalOneOpen : ${isModalOneOpen}`);
+    })
+    //
+    // Fermeture de la modale
+    xmarkIconOne.addEventListener("click", function(){
+        localStorage.setItem("isModalOneOpen", "false");
+        isModalOneOpen = JSON.parse(localStorage.getItem("isModalOneOpen"));
+        backgroundGray.style.display = "none";
+        modalOne.style.display = "none";
+    })
+    
+    xmarkIconTwo.addEventListener("click", function(){
+        localStorage.setItem("isModalOneOpen", "false");
+        isModalOneOpen = JSON.parse(localStorage.getItem("isModalOneOpen"));
+        backgroundGray.style.display = "none";
+        modalOne.style.display = "none";
+    })
+    //
+    // Aller à la page suivante de la modale
+    NEXT_MODAL_BUTTON.addEventListener("click", function(){
+        localStorage.setItem("isModalOneOpen", "false");
+        isModalOneOpen = JSON.parse(localStorage.getItem("isModalOneOpen"));
+        modalOne.style.display = "none";
+        modalTwo.style.display = "block";
+    })
+    //
+    //  Retourner à la page précédente de la modale
+    arrowLeftIcon.addEventListener("click", function(){
+        localStorage.setItem("isModalOneOpen", "true");
+        isModalOneOpen = JSON.parse(localStorage.getItem("isModalOneOpen"));
+        modalTwo.style.display = "none";
+        modalOne.style.display = "block";
+    })
