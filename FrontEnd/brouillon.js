@@ -6,4 +6,12 @@
 
 // handlers asynchrones
 
-// au bout d'un moment le token ne marche plus : local storage =/= connexion API
+globalVar = true;
+
+function changeValue () {
+    globalVar = false;
+}
+
+changeValue();
+
+console.log(globalVar);

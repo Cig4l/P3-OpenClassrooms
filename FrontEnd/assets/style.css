@@ -537,14 +537,15 @@ input[type="file"] {
 	margin: 0;
 }
 
-.background-gray{				/* fond gris transparent de la modale */
+.background-gray{
+	margin: 0;				/* fond gris transparent de la modale */
 	display: none; 					
-	position: relative;
+	position: absolute;
 	top: -600Px;
 	z-index: 4;
 	background-color: rgba(0, 0, 0, 0.3);
 	margin-left: calc(-1 * ((100vw - 100%) / 2));
 	width: 100vw;
-	height: 200vh;
+	height: 300vh;
 	padding: 0;
 }

@@ -18,6 +18,10 @@ const modifierText = document.querySelector(".modifier-button p");
 //
 //                                 DOM MODALE
 //
+// localStorage.setItem("isModalOneOpen", "false");
+// let isModalOneOpen = JSON.parse(localStorage.getItem("isModalOneOpen"));
+//
+//
 let backgroundGray = document.querySelector(".background-gray");
 // Icônes
 let xmarkIconOne = document.querySelector("#modal-1 .xmark-icon");
@@ -183,7 +187,8 @@ async function displayThumbnails(){
             console.log("API ID :" + ApiId);
             // Suppression
             deleteWork(ApiId);
-            // event.stopPropagation();
+            // backgroundGray.style.display = "block";
+            // modalOne.style.display = "block";
         })
     }
 }
@@ -221,55 +226,118 @@ async function deleteWork(workId){
 //                  CHARGER CATEGORIES TRAVAUX (FORM MODALE AJOUT TRAVAUX)
 //
 //
-async function dis () {
-    return true;
-}
-//
 // Rafraîchit la gallerie quand la page est actualisée
 //
 window.addEventListener("load", function(event){
-    // CHARGEMENT & ACTUALISATION
+    localStorage.getItem("isModalOneOpen", "false")
+    let isModalOneOpen = JSON.parse(localStorage.getItem('isModalOneOpen'));
+    // Apparition de la modale quand on clique sur MODIFIER_BUTTON
+MODIFIER_BUTTON.addEventListener("click", function(){
+    localStorage.setItem("isModalOneOpen", "true");
+    isModalOneOpen = JSON.parse(localStorage.getItem("isModalOneOpen"));
+    checkModalState(isModalOneOpen);
+    console.log(`isModalOneOpen : ${isModalOneOpen}`);
+})
+//
+// Fermeture de la modale
+xmarkIconOne.addEventListener("click", function(){
+    localStorage.setItem("isModalOneOpen", "false");
+    isModalOneOpen = JSON.parse(localStorage.getItem("isModalOneOpen"));
+    backgroundGray.style.display = "none";
+    modalOne.style.display = "none";
+})
 
+xmarkIconTwo.addEventListener("click", function(){
+    localStorage.setItem("isModalOneOpen", "false");
+    isModalOneOpen = JSON.parse(localStorage.getItem("isModalOneOpen"));
+    backgroundGray.style.display = "none";
+    modalOne.style.display = "none";
+})
+//
+// Aller à la page suivante de la modale
+NEXT_MODAL_BUTTON.addEventListener("click", function(){
+    localStorage.setItem("isModalOneOpen", "false");
+    isModalOneOpen = JSON.parse(localStorage.getItem("isModalOneOpen"));
+    modalOne.style.display = "none";
+    modalTwo.style.display = "block";
+})
+//
+//  Retourner à la page précédente de la modale
+arrowLeftIcon.addEventListener("click", function(){
+    localStorage.setItem("isModalOneOpen", "true");
+    isModalOneOpen = JSON.parse(localStorage.getItem("isModalOneOpen"));
+    modalTwo.style.display = "none";
+    modalOne.style.display = "block";
+})
+    //
+    // CHARGEMENT & ACTUALISATION
+    //
     ADMIN = JSON.parse(localStorage.getItem('ADMIN'));
+    // isModalOneOpen = JSON.parse(localStorage.getItem("isModalOneOpen"));
     
     if (window.performance && window.performance.getEntriesByType) {
         var navigationEntries = window.performance.getEntriesByType('navigation');
         console.log(window.location.href);
         if (navigationEntries.length > 0) {
             var navigationType = navigationEntries[0].type;
+            // redirection vers la page d'accueil quand on login
             if(navigationType !== 'reload' && window.location.href == 'http://127.0.0.1:5500/FrontEnd/index.html' && is_connecting === true) {
                 console.log("connexion et redirection vers la page d'accueil");
+                // is_connecting
                 is_connecting = false;
-                
+                localStorage.setItem('is_connecting', JSON.stringify(is_connecting));
+                is_connecting = JSON.parse(localStorage.getItem('is_connecting'));
+                // isModalOneOpen
+                localStorage.setItem("isModalOneOpen", "false")
+                isModalOneOpen = JSON.parse(localStorage.getItem('isModalOneOpen'));
             }
-            else if(navigationType === 'reload') {              
+            else if(isModalOneOpen !== undefined){
+                if(navigationType === 'reload' && isModalOneOpen === true){
+                    console.log("la modale 1 reste affichée");
+                    console.log(`isModalOneOpen : ${isModalOneOpen}`);
+                    checkModalState(isModalOneOpen);
+                }
+            }
+            else if(navigationType === 'reload') {        
+                console.log(`isModalOneOpen : ${isModalOneOpen}`);      
                 console.log('La page a été actualisée');
-                console.log(ADMIN)
-                if(ADMIN !== null) console.log(ADMIN.token);
+                console.log(`is_connecting : ${is_connecting}`);
+                // console.log(ADMIN)
+                // if(ADMIN !== null) console.log(ADMIN.token);
             } 
             else {                                         
                 console.log('La page a été chargée pour la 1e fois');
-                ADMIN.userId = null;
-                ADMIN.token = null;
-                localStorage.clear();
+                if (ADMIN !== null){
+                    localStorage.removeItem("ADMIN");
+                    ADMIN.userId = null;
+                    ADMIN.token = null;
+                }
             }
         }
     }
     event.preventDefault();
-    // AFFICHAGE : USER VS ADMIN
-    if (ADMIN === null){        // affichage si pas connecté
-        displayCategories();
-        console.log("admin is null");
+    //
+    // AFFICHAGE : USER OU ADMIN
+    //
+    if (ADMIN !== null){                      
+        if (ADMIN.token !== null){             
+            loginLi.innerText = "logout";      
+            ADMIN_HEADER.style.display = "flex";
+            MODIFIER_BUTTON.style.display = "flex";
+            filterZero.style.display = "none"; // fait disparaître bouton-filtre "Tous"
+            console.log(ADMIN.token);
+            console.log("admin is not null");
+            displayGallery(0);
+        }
+        else{                              
+            displayCategories();
+            console.log("admin is null");
+        }
     }
-    else{                      // affichage si connecté
-        loginLi.innerText = "logout";      //lien de déconnexion
-        ADMIN_HEADER.style.display = "flex";
-        MODIFIER_BUTTON.style.display = "flex";
-        filterZero.style.display = "none"; // fait disparaître bouton-filtre "Tous"
-        console.log(ADMIN.token);
-        console.log("admin is not null");
-        displayGallery(0);
-    } 
+    else{                                   
+        displayCategories();
+        console.log("admin is null"); 
+    }
 })
 //
 //
@@ -297,37 +365,56 @@ MODIFIER_BUTTON.addEventListener("mouseout", function(){
     editIcon.style.color = "black";
     modifierText.style.color = "black";
 })
-//
-// Apparition de la modale quand on clique sur MODIFIER_BUTTON
-MODIFIER_BUTTON.addEventListener("click", function(){
-    backgroundGray.style.display = "block";
-    modalTwo.style.display = "none";
-    modalOne.style.display = "block";
-    displayThumbnails();
-})
-//
-// Fermeture de la modale
-xmarkIconOne.addEventListener("click", function(){
-    backgroundGray.style.display = "none";
-    modalOne.style.display = "none";
-})
 
-xmarkIconTwo.addEventListener("click", function(){
-    backgroundGray.style.display = "none";
-    modalOne.style.display = "none";
-})
+function checkModalState(isModalOneOpen){
+    if (isModalOneOpen === true){
+        backgroundGray.style.display = "block";
+        modalTwo.style.display = "none";
+        modalOne.style.display = "block";
+        displayThumbnails();
+    }
+}
+
 //
-// Aller à la page suivante de la modale
-NEXT_MODAL_BUTTON.addEventListener("click", function(){
-    modalOne.style.display = "none";
-    modalTwo.style.display = "block";
-})
-//
-//  Retourner à la page précédente de la modale
-arrowLeftIcon.addEventListener("click", function(){
-    modalTwo.style.display = "none";
-    modalOne.style.display = "block";
-})
+// // Apparition de la modale quand on clique sur MODIFIER_BUTTON
+// MODIFIER_BUTTON.addEventListener("click", function(){
+//     isModalOneOpen = true;
+//     checkModalState(isModalOneOpen);
+//     console.log(isModalOneOpen);
+//     // backgroundGray.style.display = "block";
+//     // modalTwo.style.display = "none";
+//     // modalOne.style.display = "block";
+//     // displayThumbnails();
+// })
+// //
+// // Fermeture de la modale
+// xmarkIconOne.addEventListener("click", function(){
+//     console.log("je suis passé par croix 1");
+//     isModalOneOpen = false;
+//     backgroundGray.style.display = "none";
+//     modalOne.style.display = "none";
+// })
+
+// xmarkIconTwo.addEventListener("click", function(){
+//     console.log("je suis passé par croix 2");
+//     isModalOneOpen = false;
+//     backgroundGray.style.display = "none";
+//     modalOne.style.display = "none";
+// })
+// //
+// // Aller à la page suivante de la modale
+// NEXT_MODAL_BUTTON.addEventListener("click", function(){
+//     isModalOneOpen = false;
+//     modalOne.style.display = "none";
+//     modalTwo.style.display = "block";
+// })
+// //
+// //  Retourner à la page précédente de la modale
+// arrowLeftIcon.addEventListener("click", function(){
+//     isModalOneOpen = true;
+//     modalTwo.style.display = "none";
+//     modalOne.style.display = "block";
+// })
 // Test
 
 
