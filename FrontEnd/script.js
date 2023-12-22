@@ -233,13 +233,10 @@ async function deleteWork(workId){
 // Rafraîchit la gallerie quand la page est actualisée
 //
 window.addEventListener("load", function(event){
-    localStorage.getItem("isModalOneOpen", "false")
-    let isModalOneOpen = JSON.parse(localStorage.getItem('isModalOneOpen'));
     //
     // CHARGEMENT & ACTUALISATION
     //
     ADMIN = JSON.parse(localStorage.getItem('ADMIN'));
-    // isModalOneOpen = JSON.parse(localStorage.getItem("isModalOneOpen"));
     
     if (window.performance && window.performance.getEntriesByType) {
         var navigationEntries = window.performance.getEntriesByType('navigation');
@@ -253,19 +250,8 @@ window.addEventListener("load", function(event){
                 is_connecting = false;
                 localStorage.setItem('is_connecting', JSON.stringify(is_connecting));
                 is_connecting = JSON.parse(localStorage.getItem('is_connecting'));
-                // isModalOneOpen
-                localStorage.setItem("isModalOneOpen", "false")
-                isModalOneOpen = JSON.parse(localStorage.getItem('isModalOneOpen'));
             }
-            else if(isModalOneOpen !== undefined){
-                if(navigationType === 'reload' && isModalOneOpen === true){
-                    console.log("la modale 1 reste affichée");
-                    console.log(`isModalOneOpen : ${isModalOneOpen}`);
-                    checkModalState(isModalOneOpen);
-                }
-            }
-            else if(navigationType === 'reload') {        
-                console.log(`isModalOneOpen : ${isModalOneOpen}`);      
+            else if(navigationType === 'reload') {             
                 console.log('La page a été actualisée');
                 console.log(`is_connecting : ${is_connecting}`);
             } 
@@ -330,50 +316,33 @@ MODIFIER_BUTTON.addEventListener("mouseout", function(){
     modifierText.style.color = "black";
 })
 
-function checkModalState(isModalOneOpen){
-    if (isModalOneOpen === true){
+    // Apparition de la modale quand on clique sur MODIFIER_BUTTON
+    MODIFIER_BUTTON.addEventListener("click", function(){
         backgroundGray.style.display = "block";
         modalTwo.style.display = "none";
         modalOne.style.display = "block";
         displayThumbnails();
-    }
-}
-
-    // Apparition de la modale quand on clique sur MODIFIER_BUTTON
-    MODIFIER_BUTTON.addEventListener("click", function(){
-        localStorage.setItem("isModalOneOpen", "true");
-        isModalOneOpen = JSON.parse(localStorage.getItem("isModalOneOpen"));
-        checkModalState(isModalOneOpen);
-        console.log(`isModalOneOpen : ${isModalOneOpen}`);
     })
     //
     // Fermeture de la modale
     xmarkIconOne.addEventListener("click", function(){
-        localStorage.setItem("isModalOneOpen", "false");
-        isModalOneOpen = JSON.parse(localStorage.getItem("isModalOneOpen"));
         backgroundGray.style.display = "none";
         modalOne.style.display = "none";
     })
     
     xmarkIconTwo.addEventListener("click", function(){
-        localStorage.setItem("isModalOneOpen", "false");
-        isModalOneOpen = JSON.parse(localStorage.getItem("isModalOneOpen"));
         backgroundGray.style.display = "none";
         modalOne.style.display = "none";
     })
     //
     // Aller à la page suivante de la modale
     NEXT_MODAL_BUTTON.addEventListener("click", function(){
-        localStorage.setItem("isModalOneOpen", "false");
-        isModalOneOpen = JSON.parse(localStorage.getItem("isModalOneOpen"));
         modalOne.style.display = "none";
         modalTwo.style.display = "block";
     })
     //
     //  Retourner à la page précédente de la modale
     arrowLeftIcon.addEventListener("click", function(){
-        localStorage.setItem("isModalOneOpen", "true");
-        isModalOneOpen = JSON.parse(localStorage.getItem("isModalOneOpen"));
         modalTwo.style.display = "none";
         modalOne.style.display = "block";
     })
