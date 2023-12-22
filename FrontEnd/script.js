@@ -237,6 +237,7 @@ window.addEventListener("load", function(event){
     // CHARGEMENT & ACTUALISATION
     //
     ADMIN = JSON.parse(localStorage.getItem('ADMIN'));
+    is_connecting = JSON.parse(localStorage.getItem('is_connecting'));
     
     if (window.performance && window.performance.getEntriesByType) {
         var navigationEntries = window.performance.getEntriesByType('navigation');
@@ -244,7 +245,7 @@ window.addEventListener("load", function(event){
         if (navigationEntries.length > 0) {
             var navigationType = navigationEntries[0].type;
             // redirection vers la page d'accueil quand on login
-            if(navigationType !== 'reload' && window.location.href == 'http://127.0.0.1:5500/FrontEnd/index.html' && is_connecting === true) {
+            if(navigationType !== 'reload' && is_connecting === true) {
                 console.log("connexion et redirection vers la page d'accueil");
                 // is_connecting
                 is_connecting = false;
@@ -254,6 +255,8 @@ window.addEventListener("load", function(event){
             else if(navigationType === 'reload') {             
                 console.log('La page a été actualisée');
                 console.log(`is_connecting : ${is_connecting}`);
+                is_connecting = false;
+                localStorage.setItem('is_connecting', JSON.stringify(is_connecting));
             } 
             else {                                         
                 console.log('La page a été chargée pour la 1e fois');
