@@ -16,10 +16,8 @@ const MODIFIER_BUTTON = document.querySelector(".modifier-button");
 let editIcon = document.querySelector(".edit-icon");
 const modifierText = document.querySelector(".modifier-button p");
 //
-//                                 DOM MODALE
 //
-// localStorage.setItem("isModalOneOpen", "false");
-// let isModalOneOpen = JSON.parse(localStorage.getItem("isModalOneOpen"));
+//                                 DOM MODALE
 //
 //
 let backgroundGray = document.querySelector(".background-gray");
@@ -211,6 +209,13 @@ async function deleteWork(workId){
     });
     // Gestion des erreurs
     if (response.status === 200) {
+        console.log(`La suppression du travail avec l'ID ${id} a réussi.`);
+        displayThumbnails();
+        displayGallery();
+    }
+    else if(response.status === 204){
+        displayThumbnails();
+        displayGallery(0);
         console.log(`La suppression du travail avec l'ID ${id} a réussi.`);
     }
     else if(response.status === 401){
