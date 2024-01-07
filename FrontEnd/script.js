@@ -319,33 +319,47 @@ MODIFIER_BUTTON.addEventListener("mouseout", function(){
     modifierText.style.color = "black";
 })
 
-    // Apparition de la modale quand on clique sur MODIFIER_BUTTON
-    MODIFIER_BUTTON.addEventListener("click", function(){
-        backgroundGray.style.display = "block";
-        modalTwo.style.display = "none";
-        modalOne.style.display = "block";
-        displayThumbnails();
-    })
-    //
-    // Fermeture de la modale
-    xmarkIconOne.addEventListener("click", function(){
-        backgroundGray.style.display = "none";
-        modalOne.style.display = "none";
-    })
+// Apparition de la modale quand on clique sur MODIFIER_BUTTON
+MODIFIER_BUTTON.addEventListener("click", function(){
+    backgroundGray.style.display = "block";
+    modalTwo.style.display = "none";
+    modalOne.style.display = "block";
+    displayThumbnails();
+})
+
+//
+// Fermeture de la modale si clic sur X
+xmarkIconOne.addEventListener("click", function(){
+    backgroundGray.style.display = "none";
+    modalOne.style.display = "none";
+})
     
-    xmarkIconTwo.addEventListener("click", function(){
-        backgroundGray.style.display = "none";
+xmarkIconTwo.addEventListener("click", function(){
+    backgroundGray.style.display = "none";
+    modalOne.style.display = "none";
+})
+
+// Fermeture si clic en dehors de modale     
+backgroundGray.addEventListener("click", function(event){
+    let isClickInsideModalOne = modalOne.contains(event.target);
+    let isClickInsideModalTwo = modalTwo.contains(event.target);
+
+    if(!isClickInsideModalOne && !isClickInsideModalTwo){
         modalOne.style.display = "none";
-    })
-    //
-    // Aller à la page suivante de la modale
-    NEXT_MODAL_BUTTON.addEventListener("click", function(){
-        modalOne.style.display = "none";
-        modalTwo.style.display = "block";
-    })
-    //
-    //  Retourner à la page précédente de la modale
-    arrowLeftIcon.addEventListener("click", function(){
         modalTwo.style.display = "none";
-        modalOne.style.display = "block";
-    })
+        backgroundGray.style.display = "none";
+    }
+})
+//
+// Aller à la page suivante de la modale
+NEXT_MODAL_BUTTON.addEventListener("click", function(){
+    modalOne.style.display = "none";
+    modalTwo.style.display = "block";
+})
+//
+//  Retourner à la page précédente de la modale
+arrowLeftIcon.addEventListener("click", function(){
+    modalTwo.style.display = "none";
+    modalOne.style.display = "block";
+})
+
