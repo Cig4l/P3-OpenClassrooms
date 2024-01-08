@@ -196,7 +196,6 @@ async function deleteWork(workId){
     const stringId = await workId.toString();    // version string de l'ID du travail à delete
     const url = DELETE_API + stringId;
     const token = ADMIN.token;
-    const userId = ADMIN.userId;
     // Fetch
     const response = await fetch(url, {
         method: 'DELETE',
@@ -223,13 +222,13 @@ async function deleteWork(workId){
     } 
     else{
         console.log(`Comportement inattendu. Code : ${response.status}`);
-        // throw new Error(`Comportement inattendu.`);
     }
 }
 //
-//                  CHARGER CATEGORIES TRAVAUX (FORM MODALE AJOUT TRAVAUX)
+//                              AJOUTER DES TRAVAUX
 //
-// SUPPRIMER INPUT VALUES
+// Supprimer input values
+//
 function deleteInputValues(){
     document.getElementById("ajouter-subtitle").textContent = "jpg, png : 4mo max";
     document.getElementById("titre").value = "";
@@ -246,46 +245,78 @@ document.getElementById("fileInput").addEventListener("change", function(event){
         document.getElementById("ajouter-subtitle").textContent = imgName;
     }
 })
+//  Générer les catégories qui sont les <option> de <select>
+//
+async function displayFormOptions(){
+    const categories = await fetchFromAPI(CATEGORIES_API);
 
+    categorieSelect = document.getElementById("categorie");
+
+    if(categorieSelect.firstChild){            
+        for(i=0; categorieSelect.length; i++){
+            categorieSelect.removeChild(categorieSelect.firstChild);
+        }
+    }
+
+    for(i=0; i<categories.length; i++){
+        option = document.createElement("option");
+        option.textContent = categories[i].name;
+        option.value = "${categories[i].id}"
+        categorieSelect.appendChild(option)
+    }
+}
+//
+//  Event submit button
+//
 modalSubmitButton.addEventListener("click", function(event){
     event.preventDefault();
 
-    let imageForm = document.getElementById("img-form");
-    // let titre = getElementById("titre");
-    // let categorie =getElementById("categorie");
+    let titre = document.getElementById("titre");
+    let categorie = document.getElementById("categorie");
+    let imgCategory = null;   
+    
+    // il faut que ce soit la bonne option
+    // boucle for ?
+    for(i=0; i<categorie.length; i++){
+        if (categorie.value === categorie[i].value){
+            // imgCategory = objet API category => const globale + appeler quand modifier button clic
+        }
+    }
 
-    const formData = new formData(imageForm);    // crée un objet FormData vide
+    const formData = new formData();    // crée un objet FormData vide
+
+    formData.append("imageUrl", null);
+    formData.append("title", titre.value);
+    formData.append("category", categorie.value);   // int
 
     for (var pair of formData.entries()) {
         console.log(pair[0] + ': ' + pair[1]);
     }
-    // formData.append("id", null);
-
-    // formData.append("imageUrl", null);
-    // formData.append("category", categorie.value);   // int
-    // formData.append("title", titre.value);
-
-    // formData.append("userId", ADMIN.userId);
-
-    // submittedWork = {
-    //     "id": null,
-    //     "title": titre.value,
-    //     "imageUrl": "string",
-    //     "categoryId": categorie.value,
-    //     "userId": null
-    // }
 })
-// async function addWork(){
-//     const response = await fetch()
-// }
 //
+// API REQUEST
+//
+async function sendWork (formData) {
+    const response = await fetch (WORKS_API, {
+        method: "POST",
+        headers: {
+            "Content-Type": "multipart/form-data",
+            "Accept": "application/json",               // inutile ?
+            "Authorization": `Bearer ${ADMIN.token}`,
+        },
+        body: formData  // metttre objet avec titre, nom du fichier, int de la catégorie
+    })
+    if(!response.ok) {
+        throw new Error("Erreur lors de la soumission de l'oeuvre")
+    }
+    // const json = await response.json();
+    // return json;
+}
 //
 // Rafraîchit la gallerie quand la page est actualisée
 //
 window.addEventListener("load", function(event){
-    //
     // CHARGEMENT & ACTUALISATION
-    //
     ADMIN = JSON.parse(localStorage.getItem('ADMIN'));
     is_connecting = JSON.parse(localStorage.getItem('is_connecting'));
     
@@ -409,6 +440,7 @@ backgroundGray.addEventListener("click", function(event){
 NEXT_MODAL_BUTTON.addEventListener("click", function(){
     modalOne.style.display = "none";
     modalTwo.style.display = "block";
+    displayFormOptions()
 })
 //
 //  Retourner à la page précédente de la modale
