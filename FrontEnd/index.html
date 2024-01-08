@@ -56,16 +56,19 @@
 							<i class="fa-regular fa-image landscape-icon" style="color: #CBD6DC; font-size: 70px;"></i>
 							<label class="custom-file-input" for="fileInput">+ Ajouter photo</label>
 							<input type="file" id="fileInput"></input>
-							<p class="ajouter-subtitle">jpg, png : 4mo max</p>
+							<p class="ajouter-subtitle" id="ajouter-subtitle">jpg, png : 4mo max</p>
 						</div>
-						<form action="#" method="post" class="ajout-form">
+						<form action="#" method="post" class="ajout-form" id="img-form">
 							<label for="titre">Titre</label>
 							<input type="text" name="titre" id="titre">
 							<label for="categorie">Catégorie</label>
 							<select id="categorie" name="categorie">
+								<option value="categorie-1">Objets</option>
+								<option value="categorie-2">Appartements</option>
+								<option value="categorie-3">Hôtels & Restaurants</option>
 							</select>
 							<hr>
-							<input type="submit" value="Valider" class="modal-button">
+							<input type="submit" value="Valider" class="modal-button" id="modal-submit-button">
 						</form>
 					</div>
 				</div>

@@ -33,7 +33,7 @@ const TRASHCAN_CONTAINER = document.getElementById("trashcan-container");
 // PAGE 2
 let modalTwo = document.getElementById("modal-2");      // page 2 de la modale 
 const NEXT_MODAL_BUTTON = document.getElementById("next-modal-button");
-
+let modalSubmitButton = document.getElementById("modal-submit-button");
 //
 //                              RECUPERATION DES TRAVAUX
 //
@@ -229,6 +229,56 @@ async function deleteWork(workId){
 //
 //                  CHARGER CATEGORIES TRAVAUX (FORM MODALE AJOUT TRAVAUX)
 //
+// SUPPRIMER INPUT VALUES
+function deleteInputValues(){
+    document.getElementById("ajouter-subtitle").textContent = "jpg, png : 4mo max";
+    document.getElementById("titre").value = "";
+    document.getElementById("categorie").value = "categorie-1";
+}
+//
+// Afficher le nom du fichier sélectionné
+//
+document.getElementById("fileInput").addEventListener("change", function(event){
+    const imgInput = event.target;
+    const imgFile = imgInput.files[0];
+    if(imgFile){
+        const imgName = imgFile.name;
+        document.getElementById("ajouter-subtitle").textContent = imgName;
+    }
+})
+
+modalSubmitButton.addEventListener("click", function(event){
+    event.preventDefault();
+
+    let imageForm = document.getElementById("img-form");
+    // let titre = getElementById("titre");
+    // let categorie =getElementById("categorie");
+
+    const formData = new formData(imageForm);    // crée un objet FormData vide
+
+    for (var pair of formData.entries()) {
+        console.log(pair[0] + ': ' + pair[1]);
+    }
+    // formData.append("id", null);
+
+    // formData.append("imageUrl", null);
+    // formData.append("category", categorie.value);   // int
+    // formData.append("title", titre.value);
+
+    // formData.append("userId", ADMIN.userId);
+
+    // submittedWork = {
+    //     "id": null,
+    //     "title": titre.value,
+    //     "imageUrl": "string",
+    //     "categoryId": categorie.value,
+    //     "userId": null
+    // }
+})
+// async function addWork(){
+//     const response = await fetch()
+// }
+//
 //
 // Rafraîchit la gallerie quand la page est actualisée
 //
@@ -332,11 +382,14 @@ MODIFIER_BUTTON.addEventListener("click", function(){
 xmarkIconOne.addEventListener("click", function(){
     backgroundGray.style.display = "none";
     modalOne.style.display = "none";
+    deleteInputValues();
+
 })
     
 xmarkIconTwo.addEventListener("click", function(){
     backgroundGray.style.display = "none";
     modalOne.style.display = "none";
+    deleteInputValues();
 })
 
 // Fermeture si clic en dehors de modale     
@@ -348,6 +401,7 @@ backgroundGray.addEventListener("click", function(event){
         modalOne.style.display = "none";
         modalTwo.style.display = "none";
         backgroundGray.style.display = "none";
+        deleteInputValues()
     }
 })
 //
