@@ -34,6 +34,11 @@ const TRASHCAN_CONTAINER = document.getElementById("trashcan-container");
 let modalTwo = document.getElementById("modal-2");      // page 2 de la modale 
 const NEXT_MODAL_BUTTON = document.getElementById("next-modal-button");
 let modalSubmitButton = document.getElementById("modal-submit-button");
+let imgFile = undefined;
+let submitMessage = document.getElementById("submit-message");
+let ajouterContainer = document.getElementById("ajouter-container");
+let ajouterInterface = document.getElementById("ajouter-interface");
+let displayImage = document.getElementById("display-image");
 //
 //                              RECUPERATION DES TRAVAUX
 //
@@ -208,14 +213,14 @@ async function deleteWork(workId){
     });
     // Gestion des erreurs
     if (response.status === 200) {
-        console.log(`La suppression du travail avec l'ID ${id} a réussi.`);
+        console.log(`La suppression du travail avec l'ID ${stringId} a réussi.`);
         displayThumbnails();
-        displayGallery();
+        displayGallery(0);
     }
     else if(response.status === 204){
         displayThumbnails();
         displayGallery(0);
-        console.log(`La suppression du travail avec l'ID ${id} a réussi.`);
+        console.log(`La suppression du travail avec l'ID ${stringId} a réussi.`);
     }
     else if(response.status === 401){
         throw new Error(`Vous n'êtes pas autorisée à supprimer un item.`);
@@ -233,16 +238,32 @@ function deleteInputValues(){
     document.getElementById("ajouter-subtitle").textContent = "jpg, png : 4mo max";
     document.getElementById("titre").value = "";
     document.getElementById("categorie").value = "categorie-1";
+    ajouterContainer.style.padding = "19px";
+    submitMessage.textContent = "";
+    ajouterInterface.style.display = "flex";
+    displayImage.style.display = "none";
 }
 //
-// Afficher le nom du fichier sélectionné
+// Afficher l'image sélectionnée
 //
 document.getElementById("fileInput").addEventListener("change", function(event){
-    const imgInput = event.target;
-    const imgFile = imgInput.files[0];
+    // deleting input values
+    document.getElementById("ajouter-subtitle").textContent = "jpg, png : 4mo max";
+    document.getElementById("titre").value = "";
+    document.getElementById("categorie").value = "categorie-1";
+    ajouterContainer.style.padding = "19px";
+    submitMessage.textContent = "";
+    //
+    let imgInput = event.target;
+    imgFile = imgInput.files[0];
+    console.log(imgFile);
     if(imgFile){
-        const imgName = imgFile.name;
-        document.getElementById("ajouter-subtitle").textContent = imgName;
+        let imgElement = document.createElement("img");
+        ajouterContainer.style.padding = "0";
+        imgElement.className = "img-element";
+        imgElement.src = URL.createObjectURL(imgFile);
+        ajouterInterface.style.display = "none";
+        displayImage.appendChild(imgElement);
     }
 })
 //  Générer les catégories qui sont les <option> de <select>
@@ -261,37 +282,29 @@ async function displayFormOptions(){
     for(i=0; i<categories.length; i++){
         option = document.createElement("option");
         option.textContent = categories[i].name;
-        option.value = "${categories[i].id}"
+        option.value = categories[i].id;
         categorieSelect.appendChild(option)
     }
 }
 //
 //  Event submit button
 //
+
 modalSubmitButton.addEventListener("click", function(event){
     event.preventDefault();
-
-    let titre = document.getElementById("titre");
-    let categorie = document.getElementById("categorie");
-    let imgCategory = null;   
     
-    // il faut que ce soit la bonne option
-    // boucle for ?
-    for(i=0; i<categorie.length; i++){
-        if (categorie.value === categorie[i].value){
-            // imgCategory = objet API category => const globale + appeler quand modifier button clic
-        }
-    }
+    let titre = document.getElementById("titre");
+    let categorie = document.getElementById("categorie"); 
 
-    const formData = new formData();    // crée un objet FormData vide
+        let formData = new FormData();
 
-    formData.append("imageUrl", null);
-    formData.append("title", titre.value);
-    formData.append("category", categorie.value);   // int
-
-    for (var pair of formData.entries()) {
-        console.log(pair[0] + ': ' + pair[1]);
-    }
+        if(imgFile){
+            formData.append("image",imgFile)
+        }                         // str
+        formData.append("title", titre.value);                      // str
+        formData.append("category", parseInt(categorie.value));     // int
+    
+        sendWork(formData);
 })
 //
 // API REQUEST
@@ -300,18 +313,21 @@ async function sendWork (formData) {
     const response = await fetch (WORKS_API, {
         method: "POST",
         headers: {
-            "Content-Type": "multipart/form-data",
-            "Accept": "application/json",               // inutile ?
             "Authorization": `Bearer ${ADMIN.token}`,
         },
-        body: formData  // metttre objet avec titre, nom du fichier, int de la catégorie
+        body: formData  
     })
     if(!response.ok) {
+        submitMessage.textContent = "Erreur lors de la soumission de l'oeuvre";
+        submitMessage.style.color = "#c41f1f";
         throw new Error("Erreur lors de la soumission de l'oeuvre")
     }
-    // const json = await response.json();
-    // return json;
-}
+    else{
+        submitMessage.textContent = "Soumission réussie !"
+        submitMessage.style.color = "green";
+        displayGallery(0)
+    }
+    }
 //
 // Rafraîchit la gallerie quand la page est actualisée
 //
