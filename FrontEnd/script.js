@@ -28,8 +28,6 @@ let arrowLeftIcon = document.querySelector(".arrow-left-icon");
 // PAGE 1
 let modalOne = document.getElementById("modal-1");      // page 1 de la modale
 const THUMBNAILS_CONTAINER = document.getElementById("th-container"); 
-const TRASHCAN_CONTAINER = document.getElementById("trashcan-container");
-// const TRASHCAN_BUTTONS = document.querySelectorAll(".trash-can-styling");
 // PAGE 2
 let modalTwo = document.getElementById("modal-2");      // page 2 de la modale 
 const NEXT_MODAL_BUTTON = document.getElementById("next-modal-button");
@@ -381,17 +379,14 @@ window.addEventListener("load", function(event){
             MODIFIER_BUTTON.style.display = "flex";
             filterZero.style.display = "none"; // fait disparaître bouton-filtre "Tous"
             console.log(ADMIN.token);
-            console.log("admin is not null");
             displayGallery(0);
         }
         else{                              
             displayCategories();
-            console.log("admin is null");
         }
     }
     else{                                   
         displayCategories();
-        console.log("admin is null"); 
     }
 })
 //
@@ -401,13 +396,12 @@ window.addEventListener("load", function(event){
 //
 loginLink.addEventListener("click", function () {
     if(loginLi.innerText === "logout"){
-        // console.log("clear LocalStorage");
         localStorage.clear();
     }
 })
 //
 //
-//                               INTERFACE ADMIN
+//                               OUVRIR / FERMER MODALE
 //
 //
 // Hover sur le bouton "modifier" de l'interface admin
