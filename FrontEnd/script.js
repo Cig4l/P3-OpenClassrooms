@@ -14,7 +14,7 @@ let loginLink = document.getElementById("login-link");
 const ADMIN_HEADER = document.querySelector(".admin-header");
 const MODIFIER_BUTTON = document.querySelector(".modifier-button");
 let editIcon = document.querySelector(".edit-icon");
-const modifierText = document.querySelector(".modifier-button p");
+let modifierText = document.querySelector(".modifier-button p");
 //
 //
 //                                 DOM MODALE
@@ -240,6 +240,10 @@ function deleteInputValues(){
     document.getElementById("categorie").value = "categorie-1";
     ajouterContainer.style.padding = "19px";
     submitMessage.textContent = "";
+}
+//
+// Displays interface for adding works
+function displayAddWorksInterface(){
     ajouterInterface.style.display = "flex";
     displayImage.style.display = "none";
 }
@@ -247,17 +251,15 @@ function deleteInputValues(){
 // Afficher l'image sélectionnée
 //
 document.getElementById("fileInput").addEventListener("change", function(event){
-    // deleting input values
-    document.getElementById("ajouter-subtitle").textContent = "jpg, png : 4mo max";
-    document.getElementById("titre").value = "";
-    document.getElementById("categorie").value = "categorie-1";
-    ajouterContainer.style.padding = "19px";
-    submitMessage.textContent = "";
+    displayImage.style.display = "flex";
     //
     let imgInput = event.target;
     imgFile = imgInput.files[0];
     console.log(imgFile);
     if(imgFile){
+        while (displayImage.firstChild) {
+            displayImage.removeChild(displayImage.firstChild);
+        }
         let imgElement = document.createElement("img");
         ajouterContainer.style.padding = "0";
         imgElement.className = "img-element";
@@ -325,6 +327,9 @@ async function sendWork (formData) {
     else{
         submitMessage.textContent = "Soumission réussie !"
         submitMessage.style.color = "green";
+        ajouterContainer.style.padding = "19px";
+        ajouterInterface.style.display = "flex";
+        displayImage.style.display = "none";
         displayGallery(0)
     }
     }
@@ -430,6 +435,7 @@ xmarkIconOne.addEventListener("click", function(){
     backgroundGray.style.display = "none";
     modalOne.style.display = "none";
     deleteInputValues();
+    displayAddWorksInterface();
 
 })
     
@@ -437,6 +443,7 @@ xmarkIconTwo.addEventListener("click", function(){
     backgroundGray.style.display = "none";
     modalOne.style.display = "none";
     deleteInputValues();
+    displayAddWorksInterface();
 })
 
 // Fermeture si clic en dehors de modale     
@@ -449,6 +456,7 @@ backgroundGray.addEventListener("click", function(event){
         modalTwo.style.display = "none";
         backgroundGray.style.display = "none";
         deleteInputValues()
+        displayAddWorksInterface();
     }
 })
 //
@@ -463,5 +471,6 @@ NEXT_MODAL_BUTTON.addEventListener("click", function(){
 arrowLeftIcon.addEventListener("click", function(){
     modalTwo.style.display = "none";
     modalOne.style.display = "block";
+    displayThumbnails()
 })
 
