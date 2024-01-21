@@ -1,3 +1,4 @@
+let filterZero = document.getElementById("filter-0");
 // 
 //                                  DOM CONNEXION
 //
@@ -54,8 +55,6 @@ async function fetchFromAPI (url) {
 //
 //                               AFFICHER CATEGORIES 
 //
-const filterZero = document.getElementById("filter-0");
-
 async function displayCategories () {
     const categories = await fetchFromAPI(CATEGORIES_API);
     console.log(categories);
@@ -293,14 +292,24 @@ async function sendWork (formData) {
         displayGallery(0)
     }
     }
+
+function clickOnFilterZero(){
+    if(filterZero.style.display !== "none"){
+        filterZero.classList.add("selectedFilter");
+        displayGallery(0);
+    }
+}
+
 //
 window.addEventListener("load", function(event){
     ADMIN = JSON.parse(localStorage.getItem('ADMIN'));
     is_connecting = JSON.parse(localStorage.getItem('is_connecting'));
+
     
     if (window.performance && window.performance.getEntriesByType) {
         var navigationEntries = window.performance.getEntriesByType('navigation');
         console.log(window.location.href);
+        clickOnFilterZero();   
         if (navigationEntries.length > 0) {
             var navigationType = navigationEntries[0].type;
             // redirection vers la page d'accueil quand on login
@@ -310,7 +319,7 @@ window.addEventListener("load", function(event){
                 localStorage.setItem('is_connecting', JSON.stringify(is_connecting));
                 is_connecting = JSON.parse(localStorage.getItem('is_connecting'));
             }
-            else if(navigationType === 'reload') {             
+            else if(navigationType === 'reload') {      
                 console.log('La page a été actualisée');
                 console.log(`is_connecting : ${is_connecting}`);
                 is_connecting = false;
