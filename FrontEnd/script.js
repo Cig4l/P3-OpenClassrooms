@@ -19,8 +19,7 @@ let modifierText = document.querySelector(".modifier-button p");
 //                                 DOM MODALE
 //
 //
-// let backgroundGray = document.querySelector(".background-gray");
-let backgroundGray = document.querySelector(".modale-background");
+let backgroundModal = document.querySelector(".modale-background");
 // Icônes
 let xmarkIconOne = document.querySelector("#modal-1 .xmark-icon");
 let xmarkIconTwo = document.querySelector("#modal-2 .xmark-icon");
@@ -98,7 +97,6 @@ async function displayCategories () {
 //
 async function displayGallery (id) {
     let worksList = await fetchFromAPI(WORKS_API);
-    // console.log(worksList)
     
     if(id !== 0) {
         worksList = worksList.filter(work => work.categoryId === id);
@@ -106,7 +104,6 @@ async function displayGallery (id) {
     
     const gallery = document.querySelector(".gallery");
     gallery.textContent = "";
-    // let filter = document.querySelectorAll(".filter");
     
     for(j = 0; j<worksList.length; j++){
         let galleryFigure = document.createElement("figure");
@@ -390,7 +387,7 @@ MODIFIER_BUTTON.addEventListener("mouseout", function(){
 
 MODIFIER_BUTTON.addEventListener("click", function(){
     let html = document.documentElement;
-    backgroundGray.style.display = "block";
+    backgroundModal.style.display = "block";
     modalTwo.style.display = "none";
     modalOne.style.display = "block";
     displayThumbnails();
@@ -398,27 +395,27 @@ MODIFIER_BUTTON.addEventListener("click", function(){
 })
 
 xmarkIconOne.addEventListener("click", function(){
-    backgroundGray.style.display = "none";
+    backgroundModal.style.display = "none";
     modalOne.style.display = "none";
     displayAddWorksInterface();
     deleteInputValues();
 })
     
 xmarkIconTwo.addEventListener("click", function(){
-    backgroundGray.style.display = "none";
+    backgroundModal.style.display = "none";
     modalTwo.style.display = "none";
     displayAddWorksInterface();
     deleteInputValues();
 })
     
-backgroundGray.addEventListener("click", function(event){       // clics en dehors de modale 
+backgroundModal.addEventListener("click", function(event){       // clics en dehors de modale 
     let isClickInsideModalOne = modalOne.contains(event.target);
     let isClickInsideModalTwo = modalTwo.contains(event.target);
 
     if(!isClickInsideModalOne && !isClickInsideModalTwo){
         modalOne.style.display = "none";
         modalTwo.style.display = "none";
-        backgroundGray.style.display = "none";
+        backgroundModal.style.display = "none";
         displayAddWorksInterface();
         deleteInputValues();
     }
@@ -427,6 +424,7 @@ backgroundGray.addEventListener("click", function(event){       // clics en deho
 NEXT_MODAL_BUTTON.addEventListener("click", function(){
     modalOne.style.display = "none";
     modalTwo.style.display = "block";
+    submitMessage.textContent = "";
     displayFormOptions();
 })
 //

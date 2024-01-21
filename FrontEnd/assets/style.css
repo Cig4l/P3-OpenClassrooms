@@ -516,12 +516,16 @@ input[type="file"] {
 
 #modal-1{
 	z-index: 5;
-	display: none;					/* dissimuler modale 1*/
+	display: none;		
+	position: relative;
+	top: -500px;			/* dissimuler modale 1*/
 }
 
 #modal-2{
 	z-index: 5;
-	display: none;					/* dissimuler modale 2 */
+	display: none;	
+	position: relative;
+	top: -500px;					/* dissimuler modale 2 */
 }
 
 .relative-container{
@@ -532,7 +536,7 @@ input[type="file"] {
 }
 
 .modale-background{
-	position: fixed;
+	position: fixed; /* fond gris transparent de la modale */
 	width: 100%;
 	height: 100%;
 	display: none; 
@@ -542,16 +546,13 @@ input[type="file"] {
 	background-color: rgba(0, 0, 0, 0.3);
 }
 
-.background-gray{
-	margin: 0;				/* fond gris transparent de la modale */
-	/* display: none; 					 */
+.modale-panel{
+	margin: 0;
 	position: absolute;
 	top: -600Px;
 	z-index: 4;
-	/* background-color: rgba(0, 0, 0, 0.3); */
 	margin-left: calc(-1 * ((100vw - 100%) / 2));
 	width: 100vw;
-	/* height: 300vh; */
 	padding: 0;
 }
 
