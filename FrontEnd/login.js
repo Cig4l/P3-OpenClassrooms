@@ -1,16 +1,10 @@
 // sophie.bluel@test.tld
 // S0phie
 
-//                                   DOM
-
 let emailLogin = document.getElementById("email-login");
 let mdpLogin = document.getElementById("mdp-login");
-
 let connexionButton = document.getElementById("connexion-button");
-
 const WRONG_ID = document.querySelector(".wrong-id");
-
-//                     Objets stockant les infos de login
 
 let LOGIN = {
     "email": "",
@@ -26,9 +20,8 @@ let ADMIN = {
 
 let is_connecting = false;
 
-//                            FONCTION FETCH POST LOGIN
 
-async function postLogin () {
+async function postLogin () {       
     console.log()
     const response = await fetch("http://localhost:5678/api/users/login", {
         method: "POST",
@@ -43,10 +36,7 @@ async function postLogin () {
     return json;
 }
 
-//                                FONCTION POUR LOGIN
-
 async function login () {
-    // Récupération de l'userId + token
     const login = await postLogin();
 
     ADMIN = {
@@ -59,18 +49,15 @@ async function login () {
         localStorage.setItem('ADMIN', JSON.stringify(ADMIN));
         is_connecting = true;
         localStorage.setItem('is_connecting', JSON.stringify(is_connecting));
-        window.location.href = "index.html";                    // redirection
+        window.location.href = "index.html";                    
     }
 }
 
-//                          EVENT POUR SE CONNECTER
-
 connexionButton.addEventListener("click", function (event) {
-    // Annule le comportement par défaut de connexionBouton
     event.preventDefault();
 
-    WRONG_ID.innerText = "";        // Réinitialiser variable
-    ADMIN = {                       // Réinitialiser objet
+    WRONG_ID.innerText = "";        
+    ADMIN = {                       
         "userId": null,
         "token": null
     } 

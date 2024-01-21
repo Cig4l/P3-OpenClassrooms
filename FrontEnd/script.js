@@ -3,9 +3,6 @@
 //
 let ADMIN = JSON.parse(localStorage.getItem('admin'));
 let is_connecting = JSON.parse(localStorage.getItem('is_connecting'));
-
-// let is_connected = false;
-
 let loginLi = document.getElementById("login-li");
 let loginLink = document.getElementById("login-link");
 //
@@ -26,10 +23,10 @@ let xmarkIconOne = document.querySelector("#modal-1 .xmark-icon");
 let xmarkIconTwo = document.querySelector("#modal-2 .xmark-icon");
 let arrowLeftIcon = document.querySelector(".arrow-left-icon");  
 // PAGE 1
-let modalOne = document.getElementById("modal-1");      // page 1 de la modale
+let modalOne = document.getElementById("modal-1");      
 const THUMBNAILS_CONTAINER = document.getElementById("th-container"); 
 // PAGE 2
-let modalTwo = document.getElementById("modal-2");      // page 2 de la modale 
+let modalTwo = document.getElementById("modal-2");      
 const NEXT_MODAL_BUTTON = document.getElementById("next-modal-button");
 let modalSubmitButton = document.getElementById("modal-submit-button");
 let imgFile = undefined;
@@ -60,18 +57,13 @@ async function fetchFromAPI (url) {
 const filterZero = document.getElementById("filter-0");
 
 async function displayCategories () {
-    // Récupérer json
     const categories = await fetchFromAPI(CATEGORIES_API);
     console.log(categories);
     
-    // Sélectionner la div
     const filters = document.querySelector(".filters");
-    // Children
     let children = filters.children;
     
-    // BOUTON TOUS
-    // Event Bouton Tous
-    filterZero.addEventListener("click", function () {
+    filterZero.addEventListener("click", function () {      // bouton "Tous"
         for(i=0; i<children.length; i++){
             // Remove selected class
             children[i].classList.remove("selectedFilter");
@@ -80,20 +72,15 @@ async function displayCategories () {
         displayGallery(0);
     });
     
-    // AUTRES BOUTONS
-    for(i=0; i<categories.length; i++){
-        // Créer bouton API
+    for(i=0; i<categories.length; i++){                 // autres boutons
         let filter = document.createElement("button");
         let id = categories[i].id;
-        // Propriétés
         filter.classList.add("filter");
         filter.type = "button";
         filter.id = `filter-${categories[i].id}`;
         filter.textContent = `${categories[i].name}`;
-        // Ajouter bouton
         filters.appendChild(filter);
-        // Event qui gère le style des boutons filtre
-        // (puis affiche la galerie)
+
         filter.addEventListener("click", function () {
             for(i=0; i<children.length; i++){
                 children[i].classList.remove("selectedFilter");
@@ -107,28 +94,19 @@ async function displayCategories () {
 //                           AFFICHER GALLERIE + FILTRER
 //
 async function displayGallery (id) {
-    // Récupérer JSON
     let worksList = await fetchFromAPI(WORKS_API);
     // console.log(worksList)
     
-    // Filtrage si l'id n'est pas 0 (bouton filtre Tous)
     if(id !== 0) {
         worksList = worksList.filter(work => work.categoryId === id);
     }
     
-    // Sélectionner la div
     const gallery = document.querySelector(".gallery");
-    // Réinitialiser contenu div
     gallery.textContent = "";
-    
-    // Ajouter contenu
-    let filter = document.querySelectorAll(".filter");
+    // let filter = document.querySelectorAll(".filter");
     
     for(j = 0; j<worksList.length; j++){
-        // Créer les éléments
-        // parent
         let galleryFigure = document.createElement("figure");
-        // enfants
         let galleryImg = document.createElement("img");
         let galleryFigcaption = document.createElement("figcaption");
         
@@ -147,13 +125,10 @@ async function displayGallery (id) {
 async function displayThumbnails(){
     let worksList = await fetchFromAPI(WORKS_API);
     
-    // Réinitialisation
     THUMBNAILS_CONTAINER.textContent = "";
-    // TRASHCAN_CONTAINER.textContent = "";
     trashcanList = [];
     
     for(i=0; i<worksList.length; i++){
-        // Asynchrony
         let ApiId = await worksList[i].id;
         // Figure
         let thumbnailsFigure = document.createElement("figure");
@@ -183,10 +158,8 @@ async function displayThumbnails(){
         let trashCanIconId = document.getElementById(trashcanIcon.id);
         trashCanIconId.addEventListener("click", function (event) {
             event.preventDefault();
-            // Vérifs
-            console.log("HTML ID :" + trashcanIcon.id);
-            console.log("API ID :" + ApiId);
-            // Suppression
+            // console.log("HTML ID :" + trashcanIcon.id);
+            // console.log("API ID :" + ApiId);
             deleteWork(ApiId);
         })
     }
@@ -195,11 +168,10 @@ async function displayThumbnails(){
 //                            SUPPRIMER DES TRAVAUX
 //
 async function deleteWork(workId){
-    // Constantes
-    const stringId = await workId.toString();    // version string de l'ID du travail à delete
+    const stringId = await workId.toString();    
     const url = DELETE_API + stringId;
     const token = ADMIN.token;
-    // Fetch
+
     const response = await fetch(url, {
         method: 'DELETE',
         headers: {
@@ -207,9 +179,7 @@ async function deleteWork(workId){
             "Authorization": `Bearer ${token}`,
             "Content-Type": "application/json"
         },
-        // pas de body dans une requête DELETE
     });
-    // Gestion des erreurs
     if (response.status === 200) {
         console.log(`La suppression du travail avec l'ID ${stringId} a réussi.`);
         displayThumbnails();
@@ -230,8 +200,6 @@ async function deleteWork(workId){
 //
 //                              AJOUTER DES TRAVAUX
 //
-// Supprimer input values
-//
 function deleteInputValues(){
     document.getElementById("ajouter-subtitle").textContent = "jpg, png : 4mo max";
     document.getElementById("titre").value = "";
@@ -240,14 +208,12 @@ function deleteInputValues(){
     submitMessage.textContent = "";
 }
 //
-// Displays interface for adding works
 function displayAddWorksInterface(){
     ajouterInterface.style.display = "flex";
     displayImage.style.display = "none";
 }
 //
 // Afficher l'image sélectionnée
-//
 document.getElementById("fileInput").addEventListener("change", function(event){
     displayImage.style.display = "flex";
     //
@@ -266,7 +232,6 @@ document.getElementById("fileInput").addEventListener("change", function(event){
         displayImage.appendChild(imgElement);
     }
 })
-//  Générer les catégories qui sont les <option> de <select>
 //
 async function displayFormOptions(){
     const categories = await fetchFromAPI(CATEGORIES_API);
@@ -287,9 +252,6 @@ async function displayFormOptions(){
     }
 }
 //
-//  Event submit button
-//
-
 modalSubmitButton.addEventListener("click", function(event){
     event.preventDefault();
     
@@ -300,9 +262,9 @@ modalSubmitButton.addEventListener("click", function(event){
 
         if(imgFile){
             formData.append("image",imgFile)
-        }                         // str
-        formData.append("title", titre.value);                      // str
-        formData.append("category", parseInt(categorie.value));     // int
+        }                         
+        formData.append("title", titre.value);                      
+        formData.append("category", parseInt(categorie.value));     
     
         sendWork(formData);
 })
@@ -332,10 +294,7 @@ async function sendWork (formData) {
     }
     }
 //
-// Rafraîchit la gallerie quand la page est actualisée
-//
 window.addEventListener("load", function(event){
-    // CHARGEMENT & ACTUALISATION
     ADMIN = JSON.parse(localStorage.getItem('ADMIN'));
     is_connecting = JSON.parse(localStorage.getItem('is_connecting'));
     
@@ -347,7 +306,6 @@ window.addEventListener("load", function(event){
             // redirection vers la page d'accueil quand on login
             if(navigationType !== 'reload' && is_connecting === true) {
                 console.log("connexion et redirection vers la page d'accueil");
-                // is_connecting
                 is_connecting = false;
                 localStorage.setItem('is_connecting', JSON.stringify(is_connecting));
                 is_connecting = JSON.parse(localStorage.getItem('is_connecting'));
@@ -370,14 +328,12 @@ window.addEventListener("load", function(event){
     }
     event.preventDefault();
     //
-    // AFFICHAGE : USER OU ADMIN
-    //
-    if (ADMIN !== null){                      
+    if (ADMIN !== null){                    // AFFICHAGE : USER OU ADMIN                  
         if (ADMIN.token !== null){             
             loginLi.innerText = "logout";      
             ADMIN_HEADER.style.display = "flex";
             MODIFIER_BUTTON.style.display = "flex";
-            filterZero.style.display = "none"; // fait disparaître bouton-filtre "Tous"
+            filterZero.style.display = "none"; 
             console.log(ADMIN.token);
             displayGallery(0);
         }
@@ -404,7 +360,6 @@ loginLink.addEventListener("click", function () {
 //                               OUVRIR / FERMER MODALE
 //
 //
-// Hover sur le bouton "modifier" de l'interface admin
 MODIFIER_BUTTON.addEventListener("mouseover", function(){
     editIcon.style.color = "#B1663C";
     modifierText.style.color = "#B1663C";
@@ -415,7 +370,6 @@ MODIFIER_BUTTON.addEventListener("mouseout", function(){
     modifierText.style.color = "black";
 })
 
-// Apparition de la modale quand on clique sur MODIFIER_BUTTON
 MODIFIER_BUTTON.addEventListener("click", function(){
     backgroundGray.style.display = "block";
     modalTwo.style.display = "none";
@@ -423,8 +377,6 @@ MODIFIER_BUTTON.addEventListener("click", function(){
     displayThumbnails();
 })
 
-//
-// Fermeture de la modale si clic sur X
 xmarkIconOne.addEventListener("click", function(){
     backgroundGray.style.display = "none";
     modalOne.style.display = "none";
@@ -439,9 +391,8 @@ xmarkIconTwo.addEventListener("click", function(){
     deleteInputValues();
     displayAddWorksInterface();
 })
-
-// Fermeture si clic en dehors de modale     
-backgroundGray.addEventListener("click", function(event){
+    
+backgroundGray.addEventListener("click", function(event){       // clics en dehors de modale 
     let isClickInsideModalOne = modalOne.contains(event.target);
     let isClickInsideModalTwo = modalTwo.contains(event.target);
 
@@ -454,14 +405,12 @@ backgroundGray.addEventListener("click", function(event){
     }
 })
 //
-// Aller à la page suivante de la modale
 NEXT_MODAL_BUTTON.addEventListener("click", function(){
     modalOne.style.display = "none";
     modalTwo.style.display = "block";
     displayFormOptions()
 })
 //
-//  Retourner à la page précédente de la modale
 arrowLeftIcon.addEventListener("click", function(){
     modalTwo.style.display = "none";
     modalOne.style.display = "block";
