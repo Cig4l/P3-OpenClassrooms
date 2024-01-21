@@ -425,13 +425,6 @@ hr{
 	border: none;
 }
 
-/* #trashcan-container{
-	height: 0px;
-	margin: 0;
-	position: relative;
-	top: -419px;
-} */
-
 .trashcan{
 	display: flex;
 	justify-content: flex-end;
@@ -464,6 +457,7 @@ hr{
 .ajouter-container{
 	background-color: #E8F1F6;
 	padding: 19px;
+	margin-bottom: 30px;
 	/* flexbox */
 	display: flex;
 	flex-direction: column;
@@ -546,7 +540,7 @@ input[type="file"] {
 	background-color: rgba(0, 0, 0, 0.3);
 	margin-left: calc(-1 * ((100vw - 100%) / 2));
 	width: 100vw;
-	height: 300vh;
+	/* height: 300vh; */
 	padding: 0;
 }
 
