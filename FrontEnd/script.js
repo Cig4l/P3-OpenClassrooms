@@ -19,7 +19,8 @@ let modifierText = document.querySelector(".modifier-button p");
 //                                 DOM MODALE
 //
 //
-let backgroundGray = document.querySelector(".background-gray");
+// let backgroundGray = document.querySelector(".background-gray");
+let backgroundGray = document.querySelector(".modale-background");
 // Icônes
 let xmarkIconOne = document.querySelector("#modal-1 .xmark-icon");
 let xmarkIconTwo = document.querySelector("#modal-2 .xmark-icon");
@@ -32,6 +33,7 @@ let modalTwo = document.getElementById("modal-2");
 const NEXT_MODAL_BUTTON = document.getElementById("next-modal-button");
 let modalSubmitButton = document.getElementById("modal-submit-button");
 let fileInput = document.getElementById("fileInput");
+let form = document.getElementById("img-form");
 let imgFile = undefined;
 let submitMessage = document.getElementById("submit-message");
 let ajouterContainer = document.getElementById("ajouter-container");
@@ -119,7 +121,6 @@ async function displayGallery (id) {
         galleryFigure.appendChild(galleryImg);
         galleryFigure.appendChild(galleryFigcaption);
     }
-    backgroundGray.style.height = html.offsetHeight + "px";
 }
 //
 //                    AFFICHER MINIATURES DE LA MODALE
@@ -160,12 +161,11 @@ async function displayThumbnails(){
         let trashCanIconId = document.getElementById(trashcanIcon.id);
         trashCanIconId.addEventListener("click", function (event) {
             event.preventDefault();
-            // console.log("HTML ID :" + trashcanIcon.id);
-            // console.log("API ID :" + ApiId);
+            console.log("HTML ID :" + trashcanIcon.id);
+            console.log("API ID :" + ApiId);
             deleteWork(ApiId);
         })
     }
-    backgroundGray.style.height = html.offsetHeight + "px";
 }
 //
 //                            SUPPRIMER DES TRAVAUX
@@ -187,12 +187,10 @@ async function deleteWork(workId){
         console.log(`La suppression du travail avec l'ID ${stringId} a réussi.`);
         displayThumbnails();
         displayGallery(0);
-        backgroundGray.style.height = html.offsetHeight + "px";
     }
     else if(response.status === 204){
         displayThumbnails();
         displayGallery(0);
-        backgroundGray.style.height = html.offsetHeight + "px";
         console.log(`La suppression du travail avec l'ID ${stringId} a réussi.`);
     }
     else if(response.status === 401){
@@ -208,12 +206,12 @@ async function deleteWork(workId){
 //
 function deleteInputValues(){
     imgFile = "undefined";
-    let form = document.getElementById("img-form");
     form.reset();
     document.getElementById("ajouter-subtitle").textContent = "jpg, png : 4mo max";
     ajouterContainer.style.padding = "19px";
+    displayImage.style.display = "none";
+    ajouterInterface.style.display = "flex";
     submitMessage.textContent = "";
-    backgroundGray.style.height = html.offsetHeight + "px";
 }
 //
 function displayAddWorksInterface(){
@@ -296,17 +294,13 @@ async function sendWork (formData) {
         submitMessage.textContent = "Soumission réussie !"
         submitMessage.style.color = "green";
         ajouterContainer.style.padding = "19px";
-        // ajouterInterface.style.display = "flex";
-        // displayImage.style.display = "none";
-        setTimeout(function() {
-            backgroundGray.style.display = "none";
-            modalOne.style.display = "none";
-            modalTwo.style.display = "none";
-            displayGallery(0)
-            deleteInputValues();
-        }, 1000);
+        ajouterInterface.style.display = "flex";
+        displayImage.style.display = "none";
+        imgFile = "undefined";
+        form.reset();
+        displayGallery(0)
     }
-    }
+}
 
 function clickOnFilterZero(){
     if(filterZero.style.display !== "none"){
@@ -397,7 +391,6 @@ MODIFIER_BUTTON.addEventListener("mouseout", function(){
 MODIFIER_BUTTON.addEventListener("click", function(){
     let html = document.documentElement;
     backgroundGray.style.display = "block";
-    backgroundGray.style.height = html.offsetHeight + "px";
     modalTwo.style.display = "none";
     modalOne.style.display = "block";
     displayThumbnails();
@@ -413,7 +406,7 @@ xmarkIconOne.addEventListener("click", function(){
     
 xmarkIconTwo.addEventListener("click", function(){
     backgroundGray.style.display = "none";
-    modalOne.style.display = "none";
+    modalTwo.style.display = "none";
     displayAddWorksInterface();
     deleteInputValues();
 })
@@ -434,12 +427,12 @@ backgroundGray.addEventListener("click", function(event){       // clics en deho
 NEXT_MODAL_BUTTON.addEventListener("click", function(){
     modalOne.style.display = "none";
     modalTwo.style.display = "block";
-    displayFormOptions()
+    displayFormOptions();
 })
 //
 arrowLeftIcon.addEventListener("click", function(){
     modalTwo.style.display = "none";
     modalOne.style.display = "block";
-    displayThumbnails()
+    displayThumbnails();
 })
 
